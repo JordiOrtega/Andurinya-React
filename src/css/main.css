@@ -1,0 +1,34 @@
+input { width:30px !important; }
+
+.esconde {display:none;}
+
+.material-icons.md-18 { 
+    font-size: 18px !important;
+    height: 18px !important;
+    width: 18px !important;
+}
+
+.no-activo{
+    pointer-events: none;
+    cursor: default;
+}
+.preloader-background{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #eee;
+	height: 100vh;
+	position: fixed;
+	z-index: 9000;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;	
+}
+
+.row--arriba{
+	padding-top: 20px !important;
+}
+.crece{
+	min-height: 60vh;
+}
