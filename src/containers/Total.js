@@ -8,7 +8,7 @@ class Total extends Component {
 
     componentWillReceiveProps (nextProps){
         if(nextProps.cuantosdias > this.props.cuantosdias) {
-            if (this.props.pulsado) {
+            if (!this.props.pulsado) {
                 var arr = [...this.props.valueinput];
                 if (arr.length > 0) {
                     var sumalos = arr.reduce(function (a, b) { return a + b; });

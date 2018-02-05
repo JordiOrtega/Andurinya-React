@@ -12,18 +12,17 @@ class Dia extends Component {
     }
 
     componentDidMount (){ 
-        if(!this.props.pulsado){
-            $('#dia:last-child').hide(); // se esconde el último día generado para obtener los resultados.
-        }else{
-            $('html,body').animate({scrollTop: $("footer").offset().top},'slow');
-        }
-
-        if(!this.state.mejillonpulsado){this.props.habemusintentus(false);} // si no está pulsada la img del mejillon, no hay intentos
+        // se esconde el último día generado para obtener los resultados sino se hace scroll al footer.
+        this.props.pulsado ? $('#dia:last-child').hide() : $('html,body').animate({scrollTop: $("footer").offset().top},'slow');
+        
+        if(!this.state.mejillonpulsado){
+            this.props.habemusintentus(false); // si no está pulsada la img del mejillon, no hay intentos
+        } 
     }
 
     nuevo = (texto) => {
         this.setState({mejillonpulsado: true});
-        if(this.props.pulsado){
+        if(!this.props.pulsado){
             if (this.props.index + 1 >= this.props.cuantosdias){
                 var arr = [...this.state.cuantosnum];
                 arr.push(texto);
