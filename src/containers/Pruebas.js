@@ -48,11 +48,10 @@ class Pruebas extends Component {
 
             <div id="conchas" className="col s12 m6 l4 xl3">
                 <div className="card-panel hoverable grey lighten-4">
-                    <div className="commentText inline">{this.props.children} </div>
-                    <div className="right">
-                        <Resultado valueInput={this.props.valueinput[this.props.index]} />
+                    <div className="commentText inline">
+                        {this.props.children} 
                     </div>
-                    <br />
+                    <Resultado valueInput={this.props.valueinput[this.props.index]} />
                     <Ponmejis dameresultado={this.sumar} />
                     <Contador valueInput={this.props.valueinput[this.props.index]} />
                     <Restamejis dameresultado={this.restar} />

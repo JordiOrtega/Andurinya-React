@@ -22,7 +22,8 @@ class Inicia extends Component {
     }
 
     nuevoDia = (texto) => {
-        if (this.state.habemusintentus || this.state.cuantosdias.length == 0) {
+        this.setState({ habemusintentus: false });
+        if (this.state.habemusintentus || this.state.cuantosdias.length === 0) {
             let arr = this.state.cuantosdias;
             arr.push(texto);
             this.setState({ cuantosdias: arr });
@@ -52,11 +53,16 @@ class Inicia extends Component {
                 buttons.forEach((boton) => { $(boton).prop("disabled", true); }); // desactiva botones
             let links = [".btn-floating"]
                 links.forEach((link) => { $(link).addClass("no-activo") }); // desactiva links
-            this.state.habemusintentus ? undefined : $('#dia:last-child').hide();
-            //end_jquery
+            console.log(this.state.habemusintentus);
+            if(!this.state.habemusintentus){ 
+                $('#dia:last-child').hide();
+        //end_jquery
+            }else{
+                this.nuevoDia("FIN");// para que tenga en cuenta el último día, genero otro día.
+            }
 
         this.setState({ pulsado: true });
-        this.nuevoDia("FIN");// para que tenga en cuenta el último día, genero otro día.
+        
     }
 
     render() {

@@ -5,14 +5,14 @@ const footer = (props) => (
         <nav>
             <div className="nav-wrapper grey lighten-1 center-align">
                 <div>
-                    <a href="#!" className="breadcrumb">Día 1</a>
-                    <a href="#!" className="breadcrumb">Día 2</a>
-                    <a href="#!" className="breadcrumb">Día 3</a>
+                    <a href="" className="breadcrumb">Día 1</a>
+                    <a href="" className="breadcrumb">Día 2</a>
+                    <a href="" className="breadcrumb">Día 3</a>
                 </div>
             </div>
         </nav>
         <div className="row row--arriba grey darken-3">
-            <a  className="left white-text valign-wrapper" href="#"><i className="material-icons">expand_less</i> </a>
+            <a  className="left white-text valign-wrapper" href=""><i className="material-icons">expand_less</i> </a>
             <p className="white-text"> {props.text} <i className="material-icons red-text md-18">favorite</i></p>
             
             <div className="fixed-action-btn" id="footer">

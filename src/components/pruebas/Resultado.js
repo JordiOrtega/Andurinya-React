@@ -12,8 +12,9 @@ const resultado = (props) => {
         resultado = <i className="material-icons purple-text">thumb_up</i>;
     }
     return (
-        <div>
+        <div className="right">
             {resultado}
+            <br />
         </div>
     );
 }

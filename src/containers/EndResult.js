@@ -10,7 +10,7 @@ class EndResult extends Component {
     }
 
     recuenta = (valor) => {
-      return  this.props.endResult.filter((a) =>  a == valor).length;
+      return  this.props.endResult.filter((a) =>  a === valor).length;
     }
     
     render() {

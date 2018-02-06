@@ -6,12 +6,12 @@ class Total extends Component {
         pintaresultado: ""
     }
 
-    componentWillReceiveProps (nextProps){
+    componentWillReceiveProps (nextProps){ // Calling this.setState() within this function will not trigger an additional render.
         if(nextProps.cuantosdias > this.props.cuantosdias) {
             if (!this.props.pulsado) {
                 var arr = [...this.props.valueinput];
                 if (arr.length > 0) {
-                    var sumalos = arr.reduce(function (a, b) { return a + b; });
+                    var sumalos = arr.reduce(function (a, b) { return a + b; }); // suma valores del array que contiene los mejillones en cada prueba.
                     if (sumalos > this.props.intentos) {
                         this.enviaTotal("Suerte");
                     } else if (sumalos < this.props.intentos) {

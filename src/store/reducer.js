@@ -7,18 +7,20 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.EDITANDO:
-            return {
-                ...state,
-                editando: state.editando = true
-            }
-            case actionTypes.NOEDITANDO:
-            return {
-                ...state,
-                editando: state.editando = false
-            }
+        return {
+            ...state,
+            editando: state.editando = true
+        }
+        case actionTypes.NOEDITANDO:
+        return {
+            ...state,
+            editando: state.editando = false
+        }
+        default:
+        return state;
     }
   
-    return state;
+    //return state;
 
 };
 
