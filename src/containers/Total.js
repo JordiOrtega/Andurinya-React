@@ -30,7 +30,7 @@ class Total extends Component {
 
     render() {
         return (
-            <div className="valign-wrapper">
+            <div>
                 {this.state.pintaresultado}
             </div>
         );

@@ -1,60 +1,66 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Pruebas from './Pruebas';
 import Total from './Total';
 import Mejillon from '../components/dia/Mejillon';
+import * as actionTypes from './../store/actions'
 import $ from 'jquery';
 
 class Dia extends Component {
-    state = {
-        cuantosnum: [], // array usado para añadir pruebas  
-        valueinput: [], // contiene cantidad de mejillones en cada concha.
-    }
+    // state = {
+    //     //cuantosnum: [], // array usado para añadir pruebas  
+    //     valueinput: [], // contiene cantidad de mejillones en cada concha (prueba).
+    // }
 
-    componentDidMount (){ 
+    componentDidMount() {
         // se esconde el último día generado para obtener los resultados sino se hace scroll al footer.
-        this.props.pulsado ? $('#dia:last-child').hide() : $('html,body').animate({scrollTop: $("footer").offset().top},'slow');
+        this.props.pulsado ? $('#dia:last-child').hide() : $('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
     }
 
     nuevo = (texto) => {
+       
         this.props.habemusintentus(true); //sí hay intentos
-        if(!this.props.pulsado){
-            if (this.props.index + 1 >= this.props.cuantosdias){
-                var arr = [...this.state.cuantosnum];
-                arr.push(texto);
-                this.setState({cuantosnum: arr})
-                
-                if($("#footer #image").length === 0){
+        if (!this.props.pulsado) {
+            if (this.props.index + 1 >= this.props.cuantosdias) {
+               
+                this.props.nuevo();
+                // console.log("--> [[ Nuevo hay elementos en el array de cuantosnum? ]]" + this.props.cuantosnum.length);
+                if ($("#footer #image").length === 0) {
                     var clonamejillon = $('#image').clone();
                     $(clonamejillon).prependTo('#footer');
                 }
-            }else {
+            } else {
                 alert("Ya no puedes añadir más intentos.\nSigue evaluando con el siguiente día.");
             }
-        }else{
+        } else {
             alert("Ya dispones del resultado.\nRefresca la página para volver a empezar.");
         }
     }
-    eliminarUno = (i) => {
-        var arr = [...this.state.cuantosnum];
-        arr.splice(i, 1);
-        var arr2 = [...this.state.valueinput];
-        arr2.splice(i, 1);
-        this.setState({cuantosnum: arr, valueinput: arr2});
-    }
-    cadaIntento = (texto, i) => {
-           
-            return (
-                    <Pruebas    key={i} 
-                                index={i} 
-                                eliminando={this.eliminarUno} 
-                                valueinput={this.state.valueinput} 
-                                devuelveresult = {(valueinput) => this.setState({valueinput})} >
-                                        {texto}{i+1}
-                    </Pruebas>
-                    );
+    // eliminarUno = (posicion, id) => {
+    //     this.props.elimina(id);
+    //     // var arr2 = [...this.state.valueinput];
+    //     // arr2.splice(posicion, 1);
+    //     // this.setState({ valueinput: arr2 });
+    // }
+    cadaIntento = (i) => {
+        const posicionConcha = this.props.cuantosnum.findIndex(x => x.id === i);
+        //console.log("Posición concha" + posicionConcha + "Elementos en el array" + this.props.cuantosnum.length);
+        return (
+            <Pruebas key={i}
+                posicion={posicionConcha}
+                index={this.props.cuantosnum.id}
+                //eliminando={this.eliminarUno}
+                // valueinput={this.state.valueinput}
+                //devuelveresult={(valueinput) => this.setState({ valueinput })} 
+                >
+                    {"Concha número: "}{posicionConcha + 1}
+            </Pruebas>
+        );
     }
 
     render() {
+        // const arraymejillones = this.props.cuantosnum.map(x => x.mejillones);
         return (
             <div id="dia" className="row">
                 <div className="col s1">
@@ -67,16 +73,18 @@ class Dia extends Component {
 
                             <Mejillon clicked={this.nuevo} />
                         </div>
-                        <div className="col s8 m11 left-align">
-                            <Total  intentos={this.state.cuantosnum.length}     // se envía número de intentos (conchas).
-                                    valueinput={this.state.valueinput}          // array con los mejillones que hay en cadada intento (concha).
-                                    cuantosdias={this.props.cuantosdias}        // array con el número de días que se han hecho pruebas.
-                                    nuevoresultado={this.props.nuevoResultado}  // método que actualiza el array EndResult que contiene strings con el resultado diario : Justo , Suerte o Timo. 
-                                    pulsado={this.props.pulsado}                // controla si se ha solicitado el resultado final de todos los días.
+                        <div className="col s8 m11">
+                            <Total 
+                                intentos={this.props.cuantosnum.length}                     // se envía número de intentos (conchas).
+                                valueinput={this.props.cuantosnum.map(x => x.mejillones)}   // array con los mejillones que hay en cadada intento (concha).
+                                cuantosdias={this.props.cuantosdias}                        // array con el número de días que se han hecho pruebas.
+                                nuevoresultado={this.props.nuevoResultado}                  // método que actualiza el array EndResult que contiene strings con el resultado diario : Justo , Suerte o Timo. 
+                                pulsado={this.props.pulsado}                                // controla si se ha solicitado el resultado final de todos los días.
                             />
                         </div>
                     </div>
-                    {this.state.cuantosnum.map(this.cadaIntento)}
+
+                    {this.props.cuantosnum.map((eachelement) => this.cadaIntento(eachelement.id))}
 
                 </div>
                 <div className="col s1">
@@ -87,4 +95,18 @@ class Dia extends Component {
     }
 }
 
-export default Dia;
+const mapStateToProps = state => {
+    return {
+        cuantosnum: state.cuantosNum
+        //valueinput: state.valueInput
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        nuevo: () => dispatch({ type: actionTypes.NUEVACONCHA })
+       
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dia);
