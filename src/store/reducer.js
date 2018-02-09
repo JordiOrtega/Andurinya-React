@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.NUEVACONCHA:
             return {
                 ...state,
-                cuantosNum: state.cuantosNum.concat({ id: new Date().valueOf(), editando: false, mejillones: 1 })
+                cuantosNum: state.cuantosNum.concat({ id: new Date().valueOf(), editando: false, mejillones: 1, dia: action.payloadDia })
             }
         case actionTypes.ELIMINACONCHA:
             const eliminaCuantosNum = state.cuantosNum.filter(result => result.id !== action.payloadId);

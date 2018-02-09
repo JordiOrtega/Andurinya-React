@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Modal } from 'antd';
 
 import Pruebas from './Pruebas';
 import Total from './Total';
 import Mejillon from '../components/dia/Mejillon';
 import * as actionTypes from './../store/actions'
 import $ from 'jquery';
+import 'antd/dist/antd.css';
 
 class Dia extends Component {
-    // state = {
-    //     //cuantosnum: [], // array usado para añadir pruebas  
-    //     valueinput: [], // contiene cantidad de mejillones en cada concha (prueba).
-    // }
 
     componentDidMount() {
         // se esconde el último día generado para obtener los resultados sino se hace scroll al footer.
@@ -24,43 +22,42 @@ class Dia extends Component {
         if (!this.props.pulsado) {
             if (this.props.index + 1 >= this.props.cuantosdias) {
                
-                this.props.nuevo();
-                // console.log("--> [[ Nuevo hay elementos en el array de cuantosnum? ]]" + this.props.cuantosnum.length);
+                this.props.nuevo(this.props.cuantosdias);
                 if ($("#footer #image").length === 0) {
                     var clonamejillon = $('#image').clone();
                     $(clonamejillon).prependTo('#footer');
                 }
             } else {
-                alert("Ya no puedes añadir más intentos.\nSigue evaluando con el siguiente día.");
+                //alert("Ya no puedes añadir más intentos.\nSigue evaluando con el siguiente día.");
+                Modal.info({
+                    title: 'Ya no puedes añadir más intentos.',
+                    content: (
+                      <div>
+                        <p>Sigue evaluando con el siguiente día.</p>
+                        <p>O refresca para volver a empezar.</p>
+                      </div>
+                    ),
+                    maskClosable:true,
+                    onOk() {},
+                  });
             }
         } else {
             alert("Ya dispones del resultado.\nRefresca la página para volver a empezar.");
         }
     }
-    // eliminarUno = (posicion, id) => {
-    //     this.props.elimina(id);
-    //     // var arr2 = [...this.state.valueinput];
-    //     // arr2.splice(posicion, 1);
-    //     // this.setState({ valueinput: arr2 });
-    // }
-    cadaIntento = (i) => {
-        const posicionConcha = this.props.cuantosnum.findIndex(x => x.id === i);
-        //console.log("Posición concha" + posicionConcha + "Elementos en el array" + this.props.cuantosnum.length);
+    cadaIntento = (i, indice) => {
+        //const posicionConcha = this.props.cuantosnum.findIndex(x => x.id === i);
         return (
-            <Pruebas key={i}
-                posicion={posicionConcha}
-                index={this.props.cuantosnum.id}
-                //eliminando={this.eliminarUno}
-                // valueinput={this.state.valueinput}
-                //devuelveresult={(valueinput) => this.setState({ valueinput })} 
-                >
-                    {"Concha número: "}{posicionConcha + 1}
+            <Pruebas 
+                key={i}
+                posicion={this.props.cuantosnum.findIndex(x => x.id === i)}
+                index={this.props.cuantosnum.id} >
+                    {"Concha número: "}{indice + 1}
             </Pruebas>
         );
     }
 
     render() {
-        // const arraymejillones = this.props.cuantosnum.map(x => x.mejillones);
         return (
             <div id="dia" className="row">
                 <div className="col s1">
@@ -84,7 +81,8 @@ class Dia extends Component {
                         </div>
                     </div>
 
-                    {this.props.cuantosnum.map((eachelement) => this.cadaIntento(eachelement.id))}
+                    {this.props.cuantosnum.filter(deundia => deundia.dia === this.props.index + 1)
+                                          .map((eachelement, i) => this.cadaIntento(eachelement.id, i))}
 
                 </div>
                 <div className="col s1">
@@ -104,7 +102,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        nuevo: () => dispatch({ type: actionTypes.NUEVACONCHA })
+        nuevo: (dia) => dispatch({ type: actionTypes.NUEVACONCHA, payloadDia: dia })
        
     };
 };
