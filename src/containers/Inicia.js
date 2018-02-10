@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
+
 import Dia from './Dia';
 import EndResult from './EndResult';
 import $ from 'jquery';
+
+
 
 class Inicia extends Component {
     state = {
@@ -13,6 +17,11 @@ class Inicia extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         return this.state.cuantosdias.length > 0;
+    }
+
+    desactivalinks = () => {
+        let links = [".btn-floating"];
+        links.forEach((link) => { $(link).addClass("no-activo") }); 
     }
 
     nuevoResultado = (resultado) => {
@@ -34,6 +43,7 @@ class Inicia extends Component {
             }
     }
     anadeDia = (texto, i) => {
+        this.desactivalinks(); //desactiva los de los días anteriores.
         return (
             <Dia 
                 key={i}
@@ -47,38 +57,38 @@ class Inicia extends Component {
         );
     }
     muestraResultado = () => {
-        //jquery
-            $('.esconde').show(); // muestra los resultados
             let buttons = [".btn"];
                 buttons.forEach((boton) => { $(boton).prop("disabled", true); }); // desactiva botones
-            let links = [".btn-floating"]
-                links.forEach((link) => { $(link).addClass("no-activo") }); // desactiva links
-            console.log(this.state.habemusintentus);
+            this.desactivalinks(); //todos.
             if(!this.state.habemusintentus){ 
                 $('#dia:last-child').hide();
         //end_jquery
             }else{
                 this.nuevoDia("FIN");// para que tenga en cuenta el último día, genero otro día.
             }
-
         this.setState({ pulsado: true });
-        
     }
 
     render() {
+        
         return (
             <div>
                 <div className="row section">
-                    <div className="col s5 center-align"><button onClick={() => this.nuevoDia("Día: ")} className="waves-effect waves-light btn ">Nuevo día</button></div>
-                    <div className="col s1"></div>
-                    <div className="col s5 center-align"><button onClick={() => this.muestraResultado()} className="waves-effect waves-light btn ">Resultado</button></div>
-                    <div className="col s1"></div>
-                </div>
-                <div className="row esconde">
-                    <div className="container"><br />
-                        <EndResult endResult={this.state.endResult} />
+                    <div className="col s5 center-align">
+                        <button onClick={() => this.nuevoDia("Día: ")} className="waves-effect waves-light btn ">Nuevo día</button>
                     </div>
+                    <div className="col s1"></div>
+                    <div className="col s5 center-align">
+                    <Link to="/resultado">
+                        <button onClick={() =>this.muestraResultado() } className="waves-effect waves-light btn ">Resultado</button>
+                    </Link>
+                    </div>
+                    <div className="col s1"></div>
                 </div>
+                    <div className="row container"><br />
+                        {/*  Thanks to omarjmh on https://github.com/ReactTraining/react-router/issues/4105 */}
+                     <Route path="/resultado" exact component={() => <EndResult endResult={this.state.endResult} />} />    
+                    </div>
                 {this.state.cuantosdias.map(this.anadeDia)}
             </div>
 

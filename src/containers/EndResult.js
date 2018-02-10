@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 
 class EndResult extends Component {
   
-    shouldComponentUpdate (nextProps, nextState){
-        // conseguimos que únicamente se actualice cuando generamos un nuevo día.
-        // motivo por el cual se genera nuevo día al pedir resultado final.
-        // para que tenga en cuenta el resultado del último día.
-        return this.props.endResult !== nextProps.endResult;
-    }
+    // shouldComponentUpdate (nextProps, nextState){
+    //     // conseguimos que únicamente se actualice cuando generamos un nuevo día.
+    //     // motivo por el cual se genera nuevo día al pedir resultado final.
+    //     // para que tenga en cuenta el resultado del último día.
+    //     return this.props.endResult !== nextProps.endResult;
+    // }
 
     recuenta = (valor) => {
-      return  this.props.endResult.filter((a) =>  a === valor).length;
+       return  this.props.endResult.filter((a) =>  a === valor).length;
+    //  return  1;
     }
     
     render() {

@@ -7,7 +7,6 @@ import Total from './Total';
 import Mejillon from '../components/dia/Mejillon';
 import * as actionTypes from './../store/actions'
 import $ from 'jquery';
-import 'antd/dist/antd.css';
 
 class Dia extends Component {
 
@@ -19,7 +18,6 @@ class Dia extends Component {
     nuevo = (texto) => {
        
         this.props.habemusintentus(true); //sí hay intentos
-        if (!this.props.pulsado) {
             if (this.props.index + 1 >= this.props.cuantosdias) {
                
                 this.props.nuevo(this.props.cuantosdias);
@@ -28,7 +26,6 @@ class Dia extends Component {
                     $(clonamejillon).prependTo('#footer');
                 }
             } else {
-                //alert("Ya no puedes añadir más intentos.\nSigue evaluando con el siguiente día.");
                 Modal.info({
                     title: 'Ya no puedes añadir más intentos.',
                     content: (
@@ -41,12 +38,8 @@ class Dia extends Component {
                     onOk() {},
                   });
             }
-        } else {
-            alert("Ya dispones del resultado.\nRefresca la página para volver a empezar.");
-        }
     }
     cadaIntento = (i, indice) => {
-        //const posicionConcha = this.props.cuantosnum.findIndex(x => x.id === i);
         return (
             <Pruebas 
                 key={i}
@@ -58,6 +51,7 @@ class Dia extends Component {
     }
 
     render() {
+        let arraydeundia = this.props.cuantosnum.filter(deundia => deundia.dia === this.props.index + 1);
         return (
             <div id="dia" className="row">
                 <div className="col s1">
@@ -72,17 +66,16 @@ class Dia extends Component {
                         </div>
                         <div className="col s8 m11">
                             <Total 
-                                intentos={this.props.cuantosnum.length}                     // se envía número de intentos (conchas).
-                                valueinput={this.props.cuantosnum.map(x => x.mejillones)}   // array con los mejillones que hay en cadada intento (concha).
-                                cuantosdias={this.props.cuantosdias}                        // array con el número de días que se han hecho pruebas.
+                                intentos={arraydeundia.length}                              // se envía número de intentos (conchas) de un día.
+                                valueinput={arraydeundia.map(x => x.mejillones)}            // array con los mejillones que hay en cadada intento (concha) de un día.
+                                cuantosdias={this.props.cuantosdias}                        // array con el número de días en el que se han hecho pruebas.
                                 nuevoresultado={this.props.nuevoResultado}                  // método que actualiza el array EndResult que contiene strings con el resultado diario : Justo , Suerte o Timo. 
                                 pulsado={this.props.pulsado}                                // controla si se ha solicitado el resultado final de todos los días.
                             />
                         </div>
                     </div>
 
-                    {this.props.cuantosnum.filter(deundia => deundia.dia === this.props.index + 1)
-                                          .map((eachelement, i) => this.cadaIntento(eachelement.id, i))}
+                    {arraydeundia.map((eachelement, i) => this.cadaIntento(eachelement.id, i))}
 
                 </div>
                 <div className="col s1">
