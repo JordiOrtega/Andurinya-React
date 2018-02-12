@@ -5,7 +5,7 @@ const initialState = {
     // pulsado: false,
     // habemusIntentus: false,
     // cuantosDias: [],
-    // endResult: [],
+    resultadoFinal: [],
     cuantosNum: [] // conchas
     //valueInput: []  // mejillones
 
@@ -53,7 +53,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cuantosNum: sumaMejillon
-        }
+            }
         case actionTypes.RESTAMEJILLON:
             const restaMejillon = [
                 ...state.cuantosNum.slice(0, action.payloadPosicion),
@@ -63,7 +63,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cuantosNum: restaMejillon
-        }
+            }
+        case actionTypes.NUEVORESULTADO:
+            return {
+                ...state,
+                resultadoFinal: state.resultadoFinal.concat(action.payloadResultado)
+            }
+        
         default:
             return state;
     }

@@ -15,8 +15,12 @@ class Dia extends Component {
         this.props.pulsado ? $('#dia:last-child').hide() : $('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
     }
 
+    desactivalinks = () => {
+        let links = [".btn-floating"];
+        links.forEach((link) => { $(link).addClass("no-activo") }); 
+    }
     nuevo = (texto) => {
-       
+        this.desactivalinks();
         this.props.habemusintentus(true); //sí hay intentos
             if (this.props.index + 1 >= this.props.cuantosdias) {
                
@@ -57,26 +61,16 @@ class Dia extends Component {
                 <div className="col s1">
                 </div>
                 <div id={"dia" + this.props.cuantosdias} className="col s10 light-blue lighten-5 z-depth-2">
-
                     <blockquote>  <p className="flow-text">{this.props.children}  Pulsa el mejillón para añadir intentos:</p> </blockquote>
                     <div className="row">
                         <div className="col s4 m1">
-
                             <Mejillon clicked={this.nuevo} />
                         </div>
                         <div className="col s8 m11">
-                            <Total 
-                                intentos={arraydeundia.length}                              // se envía número de intentos (conchas) de un día.
-                                valueinput={arraydeundia.map(x => x.mejillones)}            // array con los mejillones que hay en cadada intento (concha) de un día.
-                                cuantosdias={this.props.cuantosdias}                        // array con el número de días en el que se han hecho pruebas.
-                                nuevoresultado={this.props.nuevoResultado}                  // método que actualiza el array EndResult que contiene strings con el resultado diario : Justo , Suerte o Timo. 
-                                pulsado={this.props.pulsado}                                // controla si se ha solicitado el resultado final de todos los días.
-                            />
+                            <Total dia={this.props.index}  />
                         </div>
                     </div>
-
                     {arraydeundia.map((eachelement, i) => this.cadaIntento(eachelement.id, i))}
-
                 </div>
                 <div className="col s1">
                 </div>
@@ -89,7 +83,6 @@ class Dia extends Component {
 const mapStateToProps = state => {
     return {
         cuantosnum: state.cuantosNum
-        //valueinput: state.valueInput
     };
 };
 

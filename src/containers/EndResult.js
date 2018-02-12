@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class EndResult extends Component {
   
-    // shouldComponentUpdate (nextProps, nextState){
-    //     // conseguimos que únicamente se actualice cuando generamos un nuevo día.
-    //     // motivo por el cual se genera nuevo día al pedir resultado final.
-    //     // para que tenga en cuenta el resultado del último día.
-    //     return this.props.endResult !== nextProps.endResult;
-    // }
-
     recuenta = (valor) => {
+       
        return  this.props.endResult.filter((a) =>  a === valor).length;
-    //  return  1;
     }
     
     render() {
+        
         return (
             <div className="container">
                 <table >
@@ -33,9 +29,21 @@ class EndResult extends Component {
                     </tr>
                     </tbody>
                 </table>
+
+                        <button onClick={() => this.props.history.replace('/')} className="waves-effect waves-light btn ">Volver</button>
             </div>
         );
     }
 }
 
-export default EndResult;
+const mapStateToProps = state => {
+    return {
+        endResult: state.resultadoFinal,
+    };
+};
+
+export default connect(mapStateToProps)(EndResult);
+
+
+
+
