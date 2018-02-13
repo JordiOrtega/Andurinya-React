@@ -8,13 +8,14 @@ import Contador from './../components/pruebas/Contador';
 import Restamejis from './../components/pruebas/Restamejis';
 import Quitamejis from './../components/pruebas/Quitamejis';
 import * as actionTypes from './../store/actions'
-import $ from 'jquery';
+//import $ from 'jquery';
 
 
 class Pruebas extends Component {
 
     componentDidMount() { 
-        $('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
+        //$('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
+        this.focusConcha.scrollIntoView();
     }
     sumar = () => { 
         this.props.sumar(this.props.posicion);
@@ -30,10 +31,11 @@ class Pruebas extends Component {
 
     }
     renderNormal() {
+        //tabindex={this.props.index}
         return (
 
-            <div id="conchas" className="col s12 m6 l4 xl3">
-                <div className="card-panel hoverable grey lighten-4">
+            <div className="col s12 m6 l4 xl3">
+                <div className="card-panel hoverable grey lighten-4" ref={(divdia)=>{this.focusConcha = divdia}} >
                     <div className="commentText inline">
                         {this.props.children}
                     </div>

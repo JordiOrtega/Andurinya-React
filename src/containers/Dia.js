@@ -12,7 +12,11 @@ class Dia extends Component {
 
     componentDidMount() {
         // se esconde el último día generado para obtener los resultados sino se hace scroll al footer.
-        this.props.pulsado ? $('#dia:last-child').hide() : $('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
+        if (this.props.diasreducer.slice(-1).pop() == "FIN" ){
+            $('#dia:last-child').hide()
+        } else{
+            $('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
+        } 
     }
 
     desactivalinks = () => {
@@ -60,7 +64,7 @@ class Dia extends Component {
             <div id="dia" className="row">
                 <div className="col s1">
                 </div>
-                <div id={"dia" + this.props.cuantosdias} className="col s10 light-blue lighten-5 z-depth-2">
+                <div className="col s10 light-blue lighten-5 z-depth-2">
                     <blockquote>  <p className="flow-text">{this.props.children}  Pulsa el mejillón para añadir intentos:</p> </blockquote>
                     <div className="row">
                         <div className="col s4 m1">
@@ -82,7 +86,8 @@ class Dia extends Component {
 
 const mapStateToProps = state => {
     return {
-        cuantosnum: state.cuantosNum
+        cuantosnum: state.cuantosNum,
+        diasreducer: state.cuantosDias
     };
 };
 

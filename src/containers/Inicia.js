@@ -10,52 +10,51 @@ import $ from 'jquery';
 
 class Inicia extends Component {
     state = {
-        cuantosdias: [],
+        //cuantosdias: [],
         pulsado: false,
         habemusintentus: false
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return this.state.cuantosdias.length > 0;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return this.props.cuantosdias.length > 0;
+    // }
 
     nuevoDia = (texto) => {
-        
-        if (this.state.cuantosdias.length > 0){
-            let arraydeundia = this.props.cuantosnum.filter(deundia => deundia.dia ===  this.state.cuantosdias.length);
-                let intentos = arraydeundia.length
-                if (intentos > 0)
-                {
-                    // filtra los mejillones del día actual y los suma con reduce.: 
-                    let sumalos = arraydeundia.map(x => x.mejillones).reduce((a, b) => a + b );
-                    
-                    if (sumalos > intentos) { 
-                        this.props.nuevoresultado("Suerte");
-                    } else if (sumalos < intentos) {
-                        this.props.nuevoresultado("Timo");
-                    } else {
-                        this.props.nuevoresultado("Justo");
+        if (this.props.cuantosdias.slice(-1).pop() !== "FIN" ){
+            if (this.props.cuantosdias.length > 0){
+                let arraydeundia = this.props.cuantosnum.filter(deundia => deundia.dia ===  this.props.cuantosdias.length);
+                    let intentos = arraydeundia.length
+                    if (intentos > 0){
+                        // filtra los mejillones del día actual y los suma con reduce.: 
+                        let sumalos = arraydeundia.map(x => x.mejillones).reduce((a, b) => a + b );
+                        
+                        if (sumalos > intentos) { 
+                            this.props.nuevoresultado("Suerte");
+                        } else if (sumalos < intentos) {
+                            this.props.nuevoresultado("Timo");
+                        } else {
+                            this.props.nuevoresultado("Justo");
+                        }
                     }
-                }
-        }
-        this.setState({ habemusintentus: false });
-        if (this.state.habemusintentus || this.state.cuantosdias.length === 0) { // si hay intentos en el dia anterior o estamos en el primer día.
-            let arr = this.state.cuantosdias;
-            arr.push(texto);
-            this.setState({ cuantosdias: arr });
-        }   else { 
-                if (texto !== 'FIN') {
-                    alert("Para añadir otro día:\nTienes que añadir intentos."); 
-                }
             }
-        
+            this.setState({ habemusintentus: false });
+            if (this.state.habemusintentus || this.props.cuantosdias.length === 0) { // si hay intentos en el dia anterior o estamos en el primer día.
+                
+                    this.props.nuevodia(texto);
+                
+            }else if (texto !== 'FIN'){ 
+                alert("Para añadir otro día:\nTienes que añadir intentos."); 
+            }
+        } else {
+            $('#dia:last-child').hide();
+        }
     }
     anadeDia = (texto, i) => {
         return (
             <Dia 
                 key={i}
                 index={i}
-                cuantosdias={this.state.cuantosdias.length}
+                cuantosdias={this.props.cuantosdias.length}
                 habemusintentus={(habemusintentus) => this.setState({ habemusintentus })}
                 pulsado={this.state.pulsado} > 
                         {texto}{i + 1}
@@ -66,7 +65,7 @@ class Inicia extends Component {
             let buttons = [".btn"];
                 buttons.forEach((boton) => { $(boton).prop("disabled", true); }); // desactiva botones
             //this.desactivalinks(); //todos.
-            if(this.props.cuantosnum.filter(deundia => deundia.dia ===  this.state.cuantosdias.length) === 0 ){ 
+            if(this.props.cuantosnum.filter(deundia => deundia.dia ===  this.props.cuantosdias.length) === 0 ){ 
                 $('#dia:last-child').hide();
             }else{ // para que tenga en cuenta el resultado del último día que sí tiene intentos, genero otro día.
                 this.nuevoDia("FIN");
@@ -91,7 +90,7 @@ class Inicia extends Component {
                     <div className="col s1"></div>
                 </div>
                     <div className="row container"><br />
-                        {/*  Thanks to omarjmh on https://github.com/ReactTraining/react-router/issues/4105 */}
+                        {/*  Pass props with component on route by omarjmh on https://github.com/ReactTraining/react-router/issues/4105 */}
                     
                         <Route path="/resultado" exact component={() => <EndResult endResult={this.props.resultadodia} />} />   
                         {/* <Route path="/resultado" exact component={EndResult} />    */}
@@ -99,7 +98,7 @@ class Inicia extends Component {
                        
                      
                     </div>
-                {this.state.cuantosdias.map(this.anadeDia)}
+                {this.props.cuantosdias.map(this.anadeDia)}
             </div>
 
         );
@@ -109,13 +108,15 @@ class Inicia extends Component {
 const mapStateToProps = state => {
     return {
         resultadodia: state.resultadoFinal,
-        cuantosnum: state.cuantosNum
+        cuantosnum: state.cuantosNum,
+        cuantosdias: state.cuantosDias
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        nuevoresultado: (nuevores) => dispatch({ type: actionTypes.NUEVORESULTADO, payloadResultado: nuevores })
+        nuevoresultado: (nuevores) => dispatch({ type: actionTypes.NUEVORESULTADO, payloadResultado: nuevores }),
+        nuevodia: (texto) => dispatch({ type: actionTypes.NUEVODIA, payloadTexto: texto  })
     };
 };
 

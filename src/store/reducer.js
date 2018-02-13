@@ -4,7 +4,7 @@ const initialState = {
     //editando: false,
     // pulsado: false,
     // habemusIntentus: false,
-    // cuantosDias: [],
+    cuantosDias: [],
     resultadoFinal: [],
     cuantosNum: [] // conchas
     //valueInput: []  // mejillones
@@ -68,6 +68,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 resultadoFinal: state.resultadoFinal.concat(action.payloadResultado)
+            }
+        case actionTypes.NUEVODIA:
+            return {
+                ...state,
+                cuantosDias: state.cuantosDias.concat(action.payloadTexto)
             }
         
         default:
