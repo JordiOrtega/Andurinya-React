@@ -10,8 +10,6 @@ import $ from 'jquery';
 
 class Inicia extends Component {
     state = {
-        //cuantosdias: [],
-        pulsado: false,
         habemusintentus: false
     }
 
@@ -56,7 +54,7 @@ class Inicia extends Component {
                 index={i}
                 cuantosdias={this.props.cuantosdias.length}
                 habemusintentus={(habemusintentus) => this.setState({ habemusintentus })}
-                pulsado={this.state.pulsado} > 
+            > 
                         {texto}{i + 1}
             </Dia>
         );
@@ -70,7 +68,7 @@ class Inicia extends Component {
             }else{ // para que tenga en cuenta el resultado del último día que sí tiene intentos, genero otro día.
                 this.nuevoDia("FIN");
             }
-        this.setState({ pulsado: true });
+       
     }
 
     render() {

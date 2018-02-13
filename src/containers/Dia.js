@@ -24,15 +24,15 @@ class Dia extends Component {
         links.forEach((link) => { $(link).addClass("no-activo") }); 
     }
     nuevo = (texto) => {
-        this.desactivalinks();
+        //this.desactivalinks();
         this.props.habemusintentus(true); //sí hay intentos
             if (this.props.index + 1 >= this.props.cuantosdias) {
                
-                this.props.nuevo(this.props.cuantosdias);
-                if ($("#footer #image").length === 0) {
-                    var clonamejillon = $('#image').clone();
-                    $(clonamejillon).prependTo('#footer');
-                }
+                this.props.nuevaconcha(this.props.cuantosdias);
+                // if ($("#footer #image").length === 0) {
+                //     var clonamejillon = $('#image').clone();
+                //     $(clonamejillon).prependTo('#footer');
+                // }
             } else {
                 Modal.info({
                     title: 'Ya no puedes añadir más intentos.',
@@ -62,9 +62,9 @@ class Dia extends Component {
         let arraydeundia = this.props.cuantosnum.filter(deundia => deundia.dia === this.props.index + 1);
         return (
             <div id="dia" className="row">
-                <div className="col s1">
+                <div className="col m1">
                 </div>
-                <div className="col s10 light-blue lighten-5 z-depth-2">
+                <div className="col s12 m10 light-blue lighten-5 z-depth-2">
                     <blockquote>  <p className="flow-text">{this.props.children}  Pulsa el mejillón para añadir intentos:</p> </blockquote>
                     <div className="row">
                         <div className="col s4 m1">
@@ -76,7 +76,7 @@ class Dia extends Component {
                     </div>
                     {arraydeundia.map((eachelement, i) => this.cadaIntento(eachelement.id, i))}
                 </div>
-                <div className="col s1">
+                <div className="col m1">
                 </div>
             </div>
 
@@ -93,7 +93,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        nuevo: (dia) => dispatch({ type: actionTypes.NUEVACONCHA, payloadDia: dia })
+        nuevaconcha: (dia) => dispatch({ type: actionTypes.NUEVACONCHA, payloadDia: dia })
        
     };
 };

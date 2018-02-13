@@ -1,7 +1,7 @@
 import React from 'react';
 
 const header = (props) => (
-    <header>
+    <header id="header">
         <div className="navbar-fixed">
             <nav>
                 <div className="nav-wrapper grey darken-1">

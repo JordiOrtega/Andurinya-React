@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import EndResult from '../EndResult';
 
 const main = (props) => (
-    <main>
+    <main class="Site-content">
         <div className="row">
             <div className="col-sm-1"></div>
             

@@ -7,7 +7,7 @@ import Footer from './Footer';
 class App extends Component {
     render() {
       return (
-        <div>   
+        <div className="allvh">   
             <Header title={"Anduriña nos persigue"} />
             <Main />
             <Footer text={"By Jordi with"} />
