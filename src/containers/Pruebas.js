@@ -3,25 +3,22 @@ import { connect } from 'react-redux';
 
 
 import Resultado from './../components/pruebas/Resultado';
-import Ponmejis from './../components/pruebas/Ponmejis';
 import Contador from './../components/pruebas/Contador';
-import Restamejis from './../components/pruebas/Restamejis';
-import Quitamejis from './../components/pruebas/Quitamejis';
+import Botones from './../components/botones/botones'
 import * as actionTypes from './../store/actions'
-//import $ from 'jquery';
 
 
 class Pruebas extends Component {
 
-    componentDidMount() { 
+    componentDidMount() {
         //$('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
         this.focusConcha.scrollIntoView();
     }
-    sumar = () => { 
+    sumar = () => {
         this.props.sumar(this.props.posicion);
     }
-    restar = () => {  
-        if (this.props.edita[this.props.posicion].mejillones > 0){
+    restar = () => {
+        if (this.props.edita[this.props.posicion].mejillones > 0) {
             this.props.restar(this.props.posicion);
         }
     }
@@ -31,19 +28,17 @@ class Pruebas extends Component {
 
     }
     renderNormal() {
-        //tabindex={this.props.index}
         return (
-
             <div className="col s12 m6 l4 xl3">
-                <div className="card-panel hoverable grey lighten-4" ref={(divdia)=>{this.focusConcha = divdia}} >
+                <div className="card-panel hoverable grey lighten-4" ref={(divdia) => { this.focusConcha = divdia }} >
                     <div className="commentText inline">
                         {this.props.children}
                     </div>
                     <Resultado valueInput={this.props.edita[this.props.posicion].mejillones} />
-                    <Ponmejis dameresultado={this.sumar} />
+                    <Botones icon={"add"} tipo={"btn-floating"} color={"blue"} dameresultado={this.sumar} /> {/* <Ponmejis */}
                     <Contador valueInput={this.props.edita[this.props.posicion].mejillones} />
-                    <Restamejis dameresultado={this.restar} /><span> </span>
-                    <Quitamejis dameresultado={() => this.props.editando(this.props.posicion)} />
+                    <Botones icon={"indeterminate_check_box"} tipo={"btn-floating"} color={"blue"} dameresultado={this.restar} /> {/* <Restamejis*/}
+                    <Botones icon={"cancel"} tipo={"btn-floating"} color={"red"} dameresultado={() => this.props.editando(this.props.posicion)} />  {/* <Quitamejis */}
                 </div>
             </div>
         );

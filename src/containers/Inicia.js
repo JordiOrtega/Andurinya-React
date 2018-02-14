@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Dia from './Dia';
 import EndResult from './EndResult';
+import Botones from './../components/botones/botones'
 import * as actionTypes from './../store/actions'
 import $ from 'jquery';
 
@@ -77,12 +78,14 @@ class Inicia extends Component {
             <div>
                 <div className="row section">
                     <div className="col s5 center-align">
-                        <button onClick={() => this.nuevoDia("Día: ")} className="waves-effect waves-light btn ">Nuevo día</button>
+                        {/* <button onClick={() => this.nuevoDia("Día: ")} className="waves-effect waves-light btn ">Nuevo día</button> */}
+                        <Botones icon={null} tipo={"btn"} dameresultado={() => this.nuevoDia("Día: ")}>Nuevo día</Botones>
                     </div>
                     <div className="col s1"></div>
                     <div className="col s5 center-align">
                     <Link to="/resultado">
-                        <button onClick={() =>this.muestraResultado() } className="waves-effect waves-light btn ">Resultado</button>
+                        {/* <button onClick={() =>this.muestraResultado() } className="waves-effect waves-light btn ">Resultado</button> */}
+                        <Botones icon={null} tipo={"btn"} dameresultado={this.muestraResultado}>Resultado</Botones>
                     </Link>
                     </div>
                     <div className="col s1"></div>
@@ -113,8 +116,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        nuevoresultado: (nuevores) => dispatch({ type: actionTypes.NUEVORESULTADO, payloadResultado: nuevores }),
-        nuevodia: (texto) => dispatch({ type: actionTypes.NUEVODIA, payloadTexto: texto  })
+        nuevoresultado: (nuevores)  => dispatch({ type: actionTypes.NUEVORESULTADO, payloadResultado: nuevores }),
+        nuevodia:       (texto)     => dispatch({ type: actionTypes.NUEVODIA, payloadTexto: texto  })
     };
 };
 
