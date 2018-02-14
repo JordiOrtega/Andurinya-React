@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from './../firebase';
+
+import Estadisticas from './../components/estadisticas/Estadisticas';
+
+
 
 class EndResult extends Component {
   
@@ -11,7 +15,7 @@ class EndResult extends Component {
     }
     storeresult = () => {
         const result = {
-            fecha:  new Date(),
+            fecha: new Date().toJSON().slice(0,10),
             justo: this.recuenta("Justo"),
             suerte: this.recuenta("Suerte"),
             timo: this.recuenta("Timo")
@@ -53,6 +57,13 @@ class EndResult extends Component {
                     <div className="col s12 m1">&nbsp;</div>
                         
                 </div>
+              
+                <div className="row  center-align">
+                    <Link to="/estadisticas">
+                        <button className="waves-effect waves-light btn ">Estadísticas</button>
+                    </Link>
+                    
+                </div>                
             </div>
         );
     }

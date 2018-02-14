@@ -2,6 +2,7 @@ import React from 'react';
 import Inicia from './../Inicia';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import EndResult from '../EndResult';
+import Estadisticas from './../../components/estadisticas/Estadisticas';
 
 const main = (props) => (
     <main>
@@ -13,6 +14,7 @@ const main = (props) => (
                     <Switch>
                         <Route path="/" exact component={Inicia} />    
                         <Route path="/resultado" component={EndResult}/>
+                        <Route path="/estadisticas" component={Estadisticas} />
                         {/* component={() => <EndResult endResult={this.state.endResult} />}  */}
                      </Switch>
                     {/* <Inicia /> */}

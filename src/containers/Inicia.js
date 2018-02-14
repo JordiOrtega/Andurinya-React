@@ -90,7 +90,7 @@ class Inicia extends Component {
                     <div className="row container"><br />
                         {/*  Pass props with component on route by omarjmh on https://github.com/ReactTraining/react-router/issues/4105 */}
                     
-                        <Route path="/resultado" exact component={() => <EndResult endResult={this.props.resultadodia} />} />   
+                        {/* <Route path="/resultado" exact component={() => <EndResult endResult={this.props.resultadodia} />} />    */}
                         {/* <Route path="/resultado" exact component={EndResult} />    */}
                    
                        
