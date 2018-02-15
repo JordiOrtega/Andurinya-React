@@ -21,27 +21,31 @@ class Dia extends Component {
 
     desactivalinks = () => {
         let links = [".btn-floating"];
-        links.forEach((link) => { $(link).addClass("no-activo") }); 
+        links.forEach((link) => { $(link).addClass("disabled") }); 
     }
     nuevo = (texto) => {
         //this.desactivalinks();
-        this.props.habemusintentus(true); //sí hay intentos
-            if (this.props.index + 1 >= this.props.cuantosdias) {
-               
-                this.props.nuevaconcha(this.props.cuantosdias);
-            } else {
-                Modal.info({
-                    title: 'Ya no puedes añadir más intentos.',
-                    content: (
-                      <div>
-                        <p>Sigue evaluando con el siguiente día.</p>
-                        <p>O refresca para volver a empezar.</p>
-                      </div>
-                    ),
-                    maskClosable:true,
-                    onOk() {},
-                  });
-            }
+        if (this.props.diasreducer.slice(-1).pop() !== "FIN" ){
+            this.props.habemusintentus(true); //sí hay intentos
+                if (this.props.index + 1 >= this.props.cuantosdias) {
+                
+                    this.props.nuevaconcha(this.props.cuantosdias);
+                } else {
+                    Modal.info({
+                        title: 'Ya no puedes añadir más intentos.',
+                        content: (
+                        <div>
+                            <p>Sigue evaluando con el siguiente día.</p>
+                            <p>O refresca para volver a empezar.</p>
+                        </div>
+                        ),
+                        maskClosable:true,
+                        onOk() {},
+                    });
+                }
+        }else{
+            this.desactivalinks();
+        }
     }
     cadaIntento = (i, indice) => {
         return (

@@ -13,11 +13,15 @@ class Inicia extends Component {
     state = {
         habemusintentus: false
     }
-
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     return this.props.cuantosdias.length > 0;
-    // }
-
+    componentDidMount(){ 
+        // Si hemos pulsado resultado y el último día añadido por usuario no contenia intentos:
+        // escondemos el último dia generado y el anterior sin ningún intento introducido.
+        // cuando volvemos de la ruta resultado no se mostrarán.
+        if (this.props.cuantosdias.slice(-1).pop() === "FIN" && 
+            this.props.cuantosnum.filter(deundia => deundia.dia ===  this.props.cuantosdias.length - 1).length === 0 ){ 
+            $('#dia:nth-last-child(-n+2)').hide();  //https://www.w3.org/TR/selectors-3/#nth-last-child-pseudo
+        }
+    }
     nuevoDia = (texto) => {
         if (this.props.cuantosdias.slice(-1).pop() !== "FIN" ){
             if (this.props.cuantosdias.length > 0){
@@ -37,7 +41,7 @@ class Inicia extends Component {
                     }
             }
             this.setState({ habemusintentus: false });
-            if (this.state.habemusintentus || this.props.cuantosdias.length === 0) { // si hay intentos en el dia anterior o estamos en el primer día.
+            if (this.state.habemusintentus || this.props.cuantosdias.length === 0 || texto === "FIN") { // si hay intentos en el dia anterior o estamos en el primer día.
                 
                     this.props.nuevodia(texto);
                 
@@ -60,48 +64,23 @@ class Inicia extends Component {
             </Dia>
         );
     }
-    muestraResultado = () => {
-            let buttons = [".btn"];
-                buttons.forEach((boton) => { $(boton).prop("disabled", true); }); // desactiva botones
-            //this.desactivalinks(); //todos.
-            if(this.props.cuantosnum.filter(deundia => deundia.dia ===  this.props.cuantosdias.length) === 0 ){ 
-                $('#dia:last-child').hide();
-            }else{ // para que tenga en cuenta el resultado del último día que sí tiene intentos, genero otro día.
-                this.nuevoDia("FIN");
-            }
-       
-    }
-
     render() {
-        
         return (
             <div>
                 <div className="row section">
                     <div className="col s5 center-align">
-                        {/* <button onClick={() => this.nuevoDia("Día: ")} className="waves-effect waves-light btn ">Nuevo día</button> */}
                         <Botones icon={null} tipo={"btn"} dameresultado={() => this.nuevoDia("Día: ")}>Nuevo día</Botones>
                     </div>
                     <div className="col s1"></div>
                     <div className="col s5 center-align">
-                    <Link to="/resultado">
-                        {/* <button onClick={() =>this.muestraResultado() } className="waves-effect waves-light btn ">Resultado</button> */}
-                        <Botones icon={null} tipo={"btn"} dameresultado={this.muestraResultado}>Resultado</Botones>
+                    <Link to="/resultado" onClick={() => this.nuevoDia("FIN")}> {/* onClick en Link y no en Botones */}
+                        <Botones icon={null} tipo={"btn"}>Resultado</Botones>
                     </Link>
                     </div>
                     <div className="col s1"></div>
                 </div>
-                    <div className="row container"><br />
-                        {/*  Pass props with component on route by omarjmh on https://github.com/ReactTraining/react-router/issues/4105 */}
-                    
-                        {/* <Route path="/resultado" exact component={() => <EndResult endResult={this.props.resultadodia} />} />    */}
-                        {/* <Route path="/resultado" exact component={EndResult} />    */}
-                   
-                       
-                     
-                    </div>
                 {this.props.cuantosdias.map(this.anadeDia)}
             </div>
-
         );
     }
 }

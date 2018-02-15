@@ -11,7 +11,6 @@ import * as actionTypes from './../store/actions'
 class Pruebas extends Component {
 
     componentDidMount() {
-        //$('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
         this.focusConcha.scrollIntoView();
     }
     sumar = () => {
@@ -25,7 +24,10 @@ class Pruebas extends Component {
     eliminar = () => {
         this.props.elimina(this.props.edita[this.props.posicion].id);
         window.Materialize.toast('¡Eliminada!', 4000);
-
+    }
+    desabilita = () => {
+        let valor = (this.props.cuantosdias.slice(-1).pop() === "FIN") ? true : false;
+        return valor;
     }
     renderNormal() {
         return (
@@ -35,10 +37,10 @@ class Pruebas extends Component {
                         {this.props.children}
                     </div>
                     <Resultado valueInput={this.props.edita[this.props.posicion].mejillones} />
-                    <Botones icon={"add"} tipo={"btn-floating"} color={"blue"} dameresultado={this.sumar} /> {/* <Ponmejis */}
+                    <Botones icon={"add"} tipo={"btn-floating"} color={"blue"} dameresultado={this.sumar} disabled={this.desabilita()}/> {/* <Ponmejis */}
                     <Contador valueInput={this.props.edita[this.props.posicion].mejillones} />
-                    <Botones icon={"indeterminate_check_box"} tipo={"btn-floating"} color={"blue"} dameresultado={this.restar} /> {/* <Restamejis*/}
-                    <Botones icon={"cancel"} tipo={"btn-floating"} color={"red"} dameresultado={() => this.props.editando(this.props.posicion)} />  {/* <Quitamejis */}
+                    <Botones icon={"indeterminate_check_box"} tipo={"btn-floating"} color={"blue"} dameresultado={this.restar} disabled={this.desabilita()}/> {/* <Restamejis*/}
+                    <Botones icon={"cancel"} tipo={"btn-floating"} color={"red"} dameresultado={() => this.props.editando(this.props.posicion)} disabled={this.desabilita()} />  {/* <Quitamejis */}
                 </div>
             </div>
         );
@@ -65,7 +67,8 @@ class Pruebas extends Component {
 
 const mapStateToProps = state => {
     return {
-        edita: state.cuantosNum
+        edita: state.cuantosNum,
+        cuantosdias: state.cuantosDias
     };
 };
 

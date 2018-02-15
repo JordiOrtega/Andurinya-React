@@ -1,15 +1,30 @@
 import React from 'react';
 
-const botones = (props) => (
-    <div className="input-field inline">
-        <a  className= {[props.tipo, "waves-effect waves-light", props.color].join(' ')}
-            onClick={props.dameresultado}>
+const botones = (props) => {
+
+    let boton = null;
+
+    boton = (props.disabled) ? 
+        (
+            <a  className= {[props.tipo, "waves-effect waves-light disabled", props.color].join(' ')} >
+                    <i className="material-icons"> {props.icon} </i>
+                    {props.children}
+            </a>
+        ) 
+        : 
+        (
+            <a  className= {[props.tipo, "waves-effect waves-light", props.color].join(' ')}
+                onClick={props.dameresultado}>
                 <i className="material-icons">
                     {props.icon}
                 </i>
-            {props.children}
-        </a>
-    </div>
-);
+                {props.children}
+            </a>
+        );
+
+
+    return(<div className="input-field inline"> {boton} </div>);
+   
+}
 
 export default botones;

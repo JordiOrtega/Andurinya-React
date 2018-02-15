@@ -18,7 +18,7 @@ class Footer extends Component {
                     <div className="arriba hide-on-med-and-up">           <Botones icon={"expand_less"} tipo={"btn-floating"} color={"grey darken-3"} dameresultado={this.up} />  </div>
                     <div className="fixed-action-btn3 hide-on-med-and-up"><Botones icon={"home"}        tipo={"btn-floating"} color={"grey darken-3"} dameresultado={""} />       </div>
                     <div className="fixed-action-btn4 hide-on-med-and-up"><Botones icon={"play_arrow"}  tipo={"btn-floating"} color={"grey darken-3"} dameresultado={""} />       </div>
-                    <div className="fixed-action-btn5 hide-on-med-and-up"><Botones icon={"add"}         tipo={"btn-floating"} color={"grey darken-3"} dameresultado={""} />       </div>
+                    <div className="fixed-action-btn5 hide-on-med-and-up"><Botones icon={"add"}         tipo={"btn-floating"} color={"grey darken-3"} dameresultado={""} disabled />       </div>
             </footer>
         );
     }
