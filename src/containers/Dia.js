@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Modal } from 'antd';
 
 import Pruebas from './Pruebas';
-import Total from './Total';
+import Total from '../components/dia/Total';
 import Mejillon from '../components/dia/Mejillon';
 import * as actionTypes from './../store/actions'
 import $ from 'jquery';
@@ -29,10 +29,6 @@ class Dia extends Component {
             if (this.props.index + 1 >= this.props.cuantosdias) {
                
                 this.props.nuevaconcha(this.props.cuantosdias);
-                // if ($("#footer #image").length === 0) {
-                //     var clonamejillon = $('#image').clone();
-                //     $(clonamejillon).prependTo('#footer');
-                // }
             } else {
                 Modal.info({
                     title: 'Ya no puedes añadir más intentos.',
@@ -60,6 +56,12 @@ class Dia extends Component {
 
     render() {
         let arraydeundia = this.props.cuantosnum.filter(deundia => deundia.dia === this.props.index + 1);
+        let total = null
+        if (this.props.resultadodia.length > 0){
+                total = (  
+                    <Total  resultadodia={this.props.resultadodia[this.props.index]} />
+                );
+        }
         return (
             <div id="dia" className="row">
                 <div className="col m1">
@@ -71,7 +73,7 @@ class Dia extends Component {
                             <Mejillon clicked={this.nuevo} />
                         </div>
                         <div className="col s8 m11">
-                            <Total dia={this.props.index}  />
+                          {total}
                         </div>
                     </div>
                     {arraydeundia.map((eachelement, i) => this.cadaIntento(eachelement.id, i))}
@@ -87,7 +89,8 @@ class Dia extends Component {
 const mapStateToProps = state => {
     return {
         cuantosnum: state.cuantosNum,
-        diasreducer: state.cuantosDias
+        diasreducer: state.cuantosDias,
+        resultadodia: state.resultadoFinal
     };
 };
 

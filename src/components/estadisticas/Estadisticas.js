@@ -43,10 +43,14 @@ class Estadisticas extends Component {
            
            <div className = "row"> 
                 <h4 className="center">Estadísticas</h4>
-                <Table dataSource={this.state.estadisticas} columns={columns} size="small"  />
-                <div className = "row center-align"> 
-                    <button onClick={() => this.props.history.replace('/')} className="waves-effect waves-light btn ">Volver</button>
+                <div className="col m2"></div>
+                <div className="col s12 m8">
+                    <Table dataSource={this.state.estadisticas} columns={columns} size="small"  />
+                    <div className = "row center-align"> 
+                        <button onClick={() => this.props.history.replace('/')} className="waves-effect waves-light btn ">Volver</button>
+                    </div>
                 </div>
+                <div className="col m2"></div>
             </div>
 
         );

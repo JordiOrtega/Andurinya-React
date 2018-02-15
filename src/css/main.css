@@ -1,14 +1,10 @@
-/* .Site {
-	display: flex;
-	min-height: 100vh;
-	flex-direction: column;
-  }
-  
-  .Site-content {
-	flex: 1;
-  } */
+:root {
+    --left-position: 140px;
+    --bottom-position: 15px;
+    --main-padding: 15px;
+}
 
-input { width:30px !important; }
+.input { width:30px !important; }
 
 .esconde {display:none;}
 
@@ -39,9 +35,6 @@ input { width:30px !important; }
 .row--arriba{
 	padding-top: 20px !important;
 }
-.allvh{
-	min-height: 100vh;
-}
 
 .mejillonnav{
 	position: fixed;
@@ -55,31 +48,31 @@ input { width:30px !important; }
 .arriba{
 	position: fixed;
 	left: 12px;
-	bottom: 15px;
+	bottom: var(--bottom-position);
 	padding-top: 15px;
 	margin-bottom: 0;
 	z-index: 997;
 }
 .fixed-action-btn3{
 	position: fixed;
-	left: 140px;
-	bottom: 15px;
+	left: var(--left-position);
+	bottom: var(--bottom-position);
 	padding-top: 15px;
 	margin-bottom: 0;
 	z-index: 997;
 }
 .fixed-action-btn4{
 	position: fixed;
-	left: 190px;
-	bottom: 15px;
+	left: calc(var(--left-position) + 50px);
+	bottom: var(--bottom-position);
 	padding-top: 15px;
 	margin-bottom: 0;
 	z-index: 997;
 }
 .fixed-action-btn5{
 	position: fixed;
-	left: 240px;
-	bottom: 15px;
+	left: calc(var(--left-position) + 100px);
+	bottom: var(--bottom-position);
 	padding-top: 15px;
 	margin-bottom: 0;
 	z-index: 997;
