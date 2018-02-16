@@ -6,14 +6,14 @@ const botones = (props) => {
 
     boton = (props.disabled) ? 
         (
-            <a  className= {[props.tipo, "waves-effect waves-light disabled", props.color].join(' ')} >
+            <a  className= {[props.tipo, "waves-effect", props.color].join(' ')} >
                     <i className="material-icons"> {props.icon} </i>
                     {props.children}
             </a>
         ) 
         : 
         (
-            <a  className= {[props.tipo, "waves-effect waves-light", props.color].join(' ')}
+            <a  className= {[props.tipo, "waves-effect", props.color].join(' ')}
                 onClick={props.dameresultado}>
                 <i className="material-icons">
                     {props.icon}

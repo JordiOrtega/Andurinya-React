@@ -10,9 +10,9 @@ import $ from 'jquery';
 
 
 class Inicia extends Component {
-    state = {
-        habemusintentus: false
-    }
+    // state = {
+    //     habemusintentus: false
+    // }
     componentDidMount(){ 
         // Si hemos pulsado resultado y el último día añadido por usuario no contenia intentos:
         // escondemos el último dia generado y el anterior sin ningún intento introducido.
@@ -40,8 +40,8 @@ class Inicia extends Component {
                         }
                     }
             }
-            this.setState({ habemusintentus: false });
-            if (this.state.habemusintentus || this.props.cuantosdias.length === 0 || texto === "FIN") { // si hay intentos en el dia anterior o estamos en el primer día.
+           //this.setState({ habemusintentus: false });
+            if (this.props.cuantosnum.filter(deundia => deundia.dia ===  this.props.cuantosdias.length).length > 0 || this.props.cuantosdias.length === 0 || texto === "FIN") { // si hay intentos en el dia anterior o estamos en el primer día.
                 
                     this.props.nuevodia(texto);
                 
@@ -58,7 +58,7 @@ class Inicia extends Component {
                 key={i}
                 index={i}
                 cuantosdias={this.props.cuantosdias.length}
-                habemusintentus={(habemusintentus) => this.setState({ habemusintentus })}
+                //habemusintentus={(habemusintentus) => this.setState({ habemusintentus })}
             > 
                         {texto}{i + 1}
             </Dia>
@@ -69,12 +69,12 @@ class Inicia extends Component {
             <div>
                 <div className="row section">
                     <div className="col s5 center-align">
-                        <Botones icon={null} tipo={"btn"} dameresultado={() => this.nuevoDia("Día: ")}>Nuevo día</Botones>
+                        <Botones icon={null} tipo={"btn"} color={"accent-color"} dameresultado={() => this.nuevoDia("Día: ")}>Nuevo día</Botones>
                     </div>
                     <div className="col s1"></div>
                     <div className="col s5 center-align">
                     <Link to="/resultado" onClick={() => this.nuevoDia("FIN")}> {/* onClick en Link y no en Botones */}
-                        <Botones icon={null} tipo={"btn"}>Resultado</Botones>
+                        <Botones icon={null} tipo={"btn"} color={"accent-color"}>Resultado</Botones>
                     </Link>
                     </div>
                     <div className="col s1"></div>

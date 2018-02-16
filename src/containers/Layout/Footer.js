@@ -14,11 +14,12 @@ class Footer extends Component {
     render() {
         return (
             <footer className="center-align page-footer white" id="footer">
-                    <div className="mejillonnav">                         <Mejillon clicked={() => this.props.nuevaconcha(this.props.diasreducer.length)} /></div>
-                    <div className="arriba hide-on-med-and-up">           <Botones icon={"expand_less"} tipo={"btn-floating"} color={"grey darken-3"} dameresultado={this.up} />  </div>
-                    <div className="fixed-action-btn3 hide-on-med-and-up"><Botones icon={"home"}        tipo={"btn-floating"} color={"grey darken-3"} dameresultado={""} />       </div>
-                    <div className="fixed-action-btn4 hide-on-med-and-up"><Botones icon={"play_arrow"}  tipo={"btn-floating"} color={"grey darken-3"} dameresultado={""} />       </div>
-                    <div className="fixed-action-btn5 hide-on-med-and-up"><Botones icon={"add"}         tipo={"btn-floating"} color={"grey darken-3"} dameresultado={""} disabled />       </div>
+            <div className="footer">&nbsp;</div>
+                    <div className="arriba">           <Botones icon={"expand_less"} tipo={"btn-floating"} color={"accent-color"} dameresultado={this.up} />  </div>
+                    <div className="mejillonnav">      <Mejillon clicked={() => this.props.nuevaconcha(this.props.diasreducer.length)} /></div>
+                    <div className="fixed-action-btn3"><Botones icon={"home"}        tipo={"btn-floating"} color={"accent-color"} dameresultado={""} />       </div>
+                    <div className="fixed-action-btn4"><Botones icon={"play_arrow"}  tipo={"btn-floating"} color={"accent-color"} dameresultado={""} />       </div>
+                    <div className="fixed-action-btn5"><Botones icon={"add"}         tipo={"btn-floating"} color={"accent-color"} dameresultado={""}  />       </div>
             </footer>
         );
     }

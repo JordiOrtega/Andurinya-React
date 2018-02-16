@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import 'antd/dist/antd.css';
+import './css/materialize.min.css';
 import './css/main.css';
 import App from './containers/Layout/App';
 import reducer from './store/reducer';

@@ -32,14 +32,14 @@ class Pruebas extends Component {
     renderNormal() {
         return (
             <div className="col s12 m6 l4 xl3">
-                <div className="card-panel hoverable grey lighten-4" ref={(divdia) => { this.focusConcha = divdia }} >
+                <div className="card-panel hoverable light-primary-color" ref={(divdia) => { this.focusConcha = divdia }} >
                     <div className="commentText inline">
                         {this.props.children}
                     </div>
                     <Resultado valueInput={this.props.edita[this.props.posicion].mejillones} />
-                    <Botones icon={"add"} tipo={"btn-floating"} color={"blue"} dameresultado={this.sumar} disabled={this.desabilita()}/> {/* <Ponmejis */}
+                    <Botones icon={"add"} tipo={"btn-floating"} color={"accent-color"} dameresultado={this.sumar} disabled={this.desabilita()}/> {/* <Ponmejis */}
                     <Contador valueInput={this.props.edita[this.props.posicion].mejillones} />
-                    <Botones icon={"indeterminate_check_box"} tipo={"btn-floating"} color={"blue"} dameresultado={this.restar} disabled={this.desabilita()}/> {/* <Restamejis*/}
+                    <Botones icon={"indeterminate_check_box"} tipo={"btn-floating"} color={"accent-color"} dameresultado={this.restar} disabled={this.desabilita()}/> {/* <Restamejis*/}
                     <Botones icon={"cancel"} tipo={"btn-floating"} color={"red"} dameresultado={() => this.props.editando(this.props.posicion)} disabled={this.desabilita()} />  {/* <Quitamejis */}
                 </div>
             </div>
@@ -48,9 +48,9 @@ class Pruebas extends Component {
     renderBorra() {
         return (
             <div className="col s12 m6 l4 xl3">
-                <div className="card-panel hoverable grey lighten-4">
-                    <h6 className="regular"> ¿Estás seguro de eliminar</h6>
-                    <h6 className="regular"> la {this.props.children} ?</h6>
+                <div className="card-panel hoverable light-primary-color">
+                    <h6 className="regular secondary-text-color"> ¿Estás seguro de eliminar</h6>
+                    <h6 className="regular secondary-text-color"> la {this.props.children} ?</h6>
                     <i className="material-icons red-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Eliminar" onClick={this.eliminar}>delete</i>
                     <span className="red-text left" onClick={this.eliminar}>Sí </span>
                     <i className="material-icons green-text right" onClick={() => this.props.noeditando(this.props.posicion)}>not_interested</i>

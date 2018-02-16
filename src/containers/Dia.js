@@ -26,7 +26,7 @@ class Dia extends Component {
     nuevo = (texto) => {
         //this.desactivalinks();
         if (this.props.diasreducer.slice(-1).pop() !== "FIN" ){
-            this.props.habemusintentus(true); //sí hay intentos
+            //this.props.habemusintentus(true); //sí hay intentos
                 if (this.props.index + 1 >= this.props.cuantosdias) {
                 
                     this.props.nuevaconcha(this.props.cuantosdias);
@@ -44,7 +44,7 @@ class Dia extends Component {
                     });
                 }
         }else{
-            this.desactivalinks();
+            this.desactivalinks(); // Modal: Recarga para volver a empezar.
         }
     }
     cadaIntento = (i, indice) => {
@@ -70,8 +70,12 @@ class Dia extends Component {
             <div id="dia" className="row">
                 <div className="col m1">
                 </div>
-                <div className="col s12 m10 light-blue lighten-5 z-depth-2">
-                    <blockquote>  <p className="flow-text">{this.props.children}  Pulsa el mejillón para añadir intentos:</p> </blockquote>
+                <div className="col s12 m10 default-primary-color z-depth-2">
+                    <blockquote className="accent-color-border">  
+                        <p className="flow-text text-primary-color">{this.props.children} 
+                            <span className="text-primary-color"> Pulsa el mejillón para añadir intentos:</span>
+                        </p> 
+                    </blockquote>
                     <div className="row">
                         <div className="col s4 m1">
                             <Mejillon clicked={this.nuevo} />
