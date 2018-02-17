@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from './../firebase';
 
-import Estadisticas from './../components/estadisticas/Estadisticas';
+//import Estadisticas from './../components/estadisticas/Estadisticas';
 
 
 
@@ -11,7 +11,7 @@ class EndResult extends Component {
   
     recuenta = (valor) => {
        
-       return  this.props.endResult.filter((a) =>  a === valor).length;
+       return  this.props.endResult.filter((e) =>  e === valor).length;
     }
     storeresult = () => {
         const result = {

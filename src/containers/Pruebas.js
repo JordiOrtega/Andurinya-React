@@ -35,8 +35,8 @@ class Pruebas extends Component {
                 <div className="card-panel hoverable light-primary-color" ref={(divdia) => { this.focusConcha = divdia }} >
                     <div className="commentText inline">
                         {this.props.children}
-                    </div>
                     <Resultado valueInput={this.props.edita[this.props.posicion].mejillones} />
+                    </div>
                     <Botones icon={"add"} tipo={"btn-floating"} color={"accent-color"} dameresultado={this.sumar} disabled={this.desabilita()}/> {/* <Ponmejis */}
                     <Contador valueInput={this.props.edita[this.props.posicion].mejillones} />
                     <Botones icon={"indeterminate_check_box"} tipo={"btn-floating"} color={"accent-color"} dameresultado={this.restar} disabled={this.desabilita()}/> {/* <Restamejis*/}
@@ -47,7 +47,7 @@ class Pruebas extends Component {
     }
     renderBorra() {
         return (
-            <div className="col s12 m6 l4 xl3">
+            <div className="col s12 m12 l6">
                 <div className="card-panel hoverable light-primary-color">
                     <h6 className="regular secondary-text-color"> ¿Estás seguro de eliminar</h6>
                     <h6 className="regular secondary-text-color"> la {this.props.children} ?</h6>

@@ -132,3 +132,7 @@
 	opacity: 0;
 	visibility: hidden;
 }
+
+.card-panel{
+	padding: 15px 8px;
+}

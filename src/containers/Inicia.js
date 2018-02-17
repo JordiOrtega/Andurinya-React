@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Dia from './Dia';
-import EndResult from './EndResult';
+import Modal from '../components/modal/Modal';
 import Botones from './../components/botones/botones'
 import * as actionTypes from './../store/actions'
 import $ from 'jquery';
 
 
 class Inicia extends Component {
-    // state = {
-    //     habemusintentus: false
-    // }
+
+    state = {
+        modal: {entra:false, title:"", secondarytext:""}
+    }
+
     componentDidMount(){ 
         // Si hemos pulsado resultado y el último día añadido por usuario no contenia intentos:
         // escondemos el último dia generado y el anterior sin ningún intento introducido.
@@ -21,6 +23,26 @@ class Inicia extends Component {
             this.props.cuantosnum.filter(deundia => deundia.dia ===  this.props.cuantosdias.length - 1).length === 0 ){ 
             $('#dia:nth-last-child(-n+2)').hide();  //https://www.w3.org/TR/selectors-3/#nth-last-child-pseudo
         }
+    }
+    escondeModal = () => {
+        this.setState(prevState => ({
+            modal: {
+                ...prevState.modal,
+                entra: false,
+                title: "",
+                secondarytext: ""
+            }
+        }));
+    }
+    infoModal = (title, secondarytext) => {
+        this.setState(prevState => ({
+            modal: {
+                ...prevState.modal,
+                entra: true, 
+                title: title,
+                secondarytext: secondarytext
+            }
+        }))
     }
     nuevoDia = (texto) => {
         if (this.props.cuantosdias.slice(-1).pop() !== "FIN" ){
@@ -40,13 +62,12 @@ class Inicia extends Component {
                         }
                     }
             }
-           //this.setState({ habemusintentus: false });
             if (this.props.cuantosnum.filter(deundia => deundia.dia ===  this.props.cuantosdias.length).length > 0 || this.props.cuantosdias.length === 0 || texto === "FIN") { // si hay intentos en el dia anterior o estamos en el primer día.
                 
                     this.props.nuevodia(texto);
                 
             }else if (texto !== 'FIN'){ 
-                alert("Para añadir otro día:\nTienes que añadir intentos."); 
+                this.infoModal("Para añadir otro día:","Tienes que añadir intentos."); 
             }
         } else {
             $('#dia:last-child').hide();
@@ -58,7 +79,7 @@ class Inicia extends Component {
                 key={i}
                 index={i}
                 cuantosdias={this.props.cuantosdias.length}
-                //habemusintentus={(habemusintentus) => this.setState({ habemusintentus })}
+                infoModal={this.infoModal}
             > 
                         {texto}{i + 1}
             </Dia>
@@ -80,6 +101,12 @@ class Inicia extends Component {
                     <div className="col s1"></div>
                 </div>
                 {this.props.cuantosdias.map(this.anadeDia)}
+                <Modal 
+                    entra={this.state.modal.entra} 
+                    title={this.state.modal.title} 
+                    secondarytext={this.state.modal.secondarytext} 
+                    onclose={this.escondeModal} 
+                />
             </div>
         );
     }

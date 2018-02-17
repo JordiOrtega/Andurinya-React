@@ -4,15 +4,15 @@ const botones = (props) => {
 
     let boton = null;
 
-    boton = (props.disabled) ? 
-        (
+    if(props.disabled){
+        boton =(
             <a  className= {[props.tipo, "waves-effect", props.color].join(' ')} >
                     <i className="material-icons"> {props.icon} </i>
                     {props.children}
             </a>
-        ) 
-        : 
-        (
+        ); 
+    } else
+        boton=(
             <a  className= {[props.tipo, "waves-effect", props.color].join(' ')}
                 onClick={props.dameresultado}>
                 <i className="material-icons">
@@ -21,10 +21,7 @@ const botones = (props) => {
                 {props.children}
             </a>
         );
-
-
     return(<div className="input-field inline"> {boton} </div>);
-   
 }
 
 export default botones;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 //import { Affix, Button } from 'antd';
 
 import * as actionTypes from './../../store/actions'
@@ -12,14 +13,58 @@ class Footer extends Component {
         window.scrollTo(0,0);
     }
     render() {
+        let hayIntentos =  this.props.cuantosnum.filter(deundia => deundia.dia === this.props.diasreducer.length).length;
         return (
             <footer className="center-align page-footer white" id="footer">
             <div className="footer">&nbsp;</div>
-                    <div className="arriba">           <Botones icon={"expand_less"} tipo={"btn-floating"} color={"accent-color"} dameresultado={this.up} />  </div>
-                    <div className="mejillonnav">      <Mejillon clicked={() => this.props.nuevaconcha(this.props.diasreducer.length)} /></div>
-                    <div className="fixed-action-btn3"><Botones icon={"home"}        tipo={"btn-floating"} color={"accent-color"} dameresultado={""} />       </div>
-                    <div className="fixed-action-btn4"><Botones icon={"play_arrow"}  tipo={"btn-floating"} color={"accent-color"} dameresultado={""} />       </div>
-                    <div className="fixed-action-btn5"><Botones icon={"add"}         tipo={"btn-floating"} color={"accent-color"} dameresultado={() => this.props.nuevodia("Día: ")}  /> </div>
+                    <div className="arriba">           
+                        <Botones 
+                            icon={"expand_less"} 
+                            tipo={"btn-floating"} 
+                            color={"accent-color"} 
+                            dameresultado={this.up} 
+                        />  
+                    </div>
+                    <div className="mejillonnav">      
+                        <Mejillon 
+                            clicked={
+                                        () => (this.props.diasreducer.slice(-1).pop() !== "FIN" ) ? 
+                                            this.props.nuevaconcha(this.props.diasreducer.length) : 
+                                            null 
+                                    }
+                        />
+                    </div>
+                    <div className="fixed-action-btn3">
+                        <Link to="/">
+                            <Botones 
+                                icon={"home"}
+                                tipo={"btn-floating"} 
+                                color={"accent-color"} 
+                            />
+                        </Link>       
+                    </div>
+                    <div className="fixed-action-btn4">
+                        <Link to="/resultado">
+                            <Botones 
+                                icon={"play_arrow"}  
+                                tipo={"btn-floating"} 
+                                color={"accent-color"} 
+                            />       
+                        </Link>
+                    </div>
+                    <div className="fixed-action-btn5">
+                        <Botones 
+                            icon={"add"}         
+                            tipo={"btn-floating"} 
+                            color={"accent-color"} 
+                            dameresultado={
+                                            () =>  { if(this.props.diasreducer.slice(-1).pop() !== "FIN" && hayIntentos > 0 ){ 
+                                                        return this.props.nuevodia("Día: ")
+                                                    }else return null
+                                                }
+                                          }  
+                        /> 
+                    </div>
             </footer>
         );
     }
@@ -27,7 +72,8 @@ class Footer extends Component {
 
 const mapStateToProps = state => {
     return {
-        diasreducer: state.cuantosDias
+        diasreducer: state.cuantosDias,
+        cuantosnum: state.cuantosNum
     };
 };
 

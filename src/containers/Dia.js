@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import { Modal } from 'antd';
 
 import Pruebas from './Pruebas';
 import Total from '../components/dia/Total';
 import Mejillon from '../components/dia/Mejillon';
-import Modal from '../components/modal/Modal';
 import * as actionTypes from './../store/actions'
 import $ from 'jquery';
 
@@ -23,46 +21,18 @@ class Dia extends Component {
             $('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
         } 
     }
-    escondeModal = () => {
-        this.setState(prevState => ({
-            modal: {
-                ...prevState.modal,
-                entra: false,
-                title: "",
-                secondarytext: ""
-            }
-        }));
-    }
-
-    desactivalinks = () => {
-        let links = [".btn-floating"];
-        links.forEach((link) => { $(link).addClass("disabled") }); 
-    }
     nuevo = (texto) => {
-        //this.desactivalinks();
         if (this.props.diasreducer.slice(-1).pop() !== "FIN" ){
                 if (this.props.index + 1 >= this.props.cuantosdias) {
                     this.props.nuevaconcha(this.props.cuantosdias);
                 } else {
-                    this.setState(prevState => ({
-                        modal: {
-                            ...prevState.modal,
-                            entra: true, 
-                            title: "Ya no puedes añadir más intentos.",
-                            secondarytext: "Sigue evaluando con el siguiente día.\n O refresca para volver a empezar."
-                        }
-                    }))
+                    this.props.infoModal(
+                        "Ya no puedes añadir más intentos.",
+                        "Sigue evaluando con el siguiente día.\n O refresca para volver a empezar."
+                    );
                 }
         }else{
-            this.setState(prevState => ({
-                modal: {
-                    ...prevState.modal,
-                    entra: true, 
-                    title: "Recarga la página para volver a empezar.",
-                    secondarytext: ""
-                }
-            }))
-        //this.desactivalinks(); // Modal: Recarga para volver a empezar.
+            this.props.infoModal("Recarga para volver a empezar.");
         }
     }
     cadaIntento = (i, indice) => {
@@ -106,8 +76,7 @@ class Dia extends Component {
                 </div>
                 <div className="col m1">
                 </div>
-                <Modal entra={this.state.modal.entra} title={this.state.modal.title} secondarytext={this.state.modal.secondarytext} onclose={this.escondeModal} />
-                {/* {this.nuevo()} */}
+               
             </div>
 
         );
