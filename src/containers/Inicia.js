@@ -67,7 +67,7 @@ class Inicia extends Component {
     render() {
         return (
             <div>
-                <div className="row section">
+                <div className="row section container">
                     <div className="col s5 center-align">
                         <Botones icon={null} tipo={"btn"} color={"accent-color"} dameresultado={() => this.nuevoDia("Día: ")}>Nuevo día</Botones>
                     </div>

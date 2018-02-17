@@ -1,22 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal } from 'antd';
+//import { Modal } from 'antd';
 
 import Pruebas from './Pruebas';
 import Total from '../components/dia/Total';
 import Mejillon from '../components/dia/Mejillon';
+import Modal from '../components/modal/Modal';
 import * as actionTypes from './../store/actions'
 import $ from 'jquery';
 
 class Dia extends Component {
 
+    state = {
+        modal: {entra:false, title:"", secondarytext:""}
+    }
+
     componentDidMount() {
         // se esconde el último día generado para obtener los resultados sino se hace scroll al footer.
-        if (this.props.diasreducer.slice(-1).pop() == "FIN" ){
+        if (this.props.diasreducer.slice(-1).pop() === "FIN" ){
             $('#dia:last-child').hide()
         } else{
             $('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
         } 
+    }
+    escondeModal = () => {
+        this.setState(prevState => ({
+            modal: {
+                ...prevState.modal,
+                entra: false,
+                title: "",
+                secondarytext: ""
+            }
+        }));
     }
 
     desactivalinks = () => {
@@ -26,25 +41,28 @@ class Dia extends Component {
     nuevo = (texto) => {
         //this.desactivalinks();
         if (this.props.diasreducer.slice(-1).pop() !== "FIN" ){
-            //this.props.habemusintentus(true); //sí hay intentos
                 if (this.props.index + 1 >= this.props.cuantosdias) {
-                
                     this.props.nuevaconcha(this.props.cuantosdias);
                 } else {
-                    Modal.info({
-                        title: 'Ya no puedes añadir más intentos.',
-                        content: (
-                        <div>
-                            <p>Sigue evaluando con el siguiente día.</p>
-                            <p>O refresca para volver a empezar.</p>
-                        </div>
-                        ),
-                        maskClosable:true,
-                        onOk() {},
-                    });
+                    this.setState(prevState => ({
+                        modal: {
+                            ...prevState.modal,
+                            entra: true, 
+                            title: "Ya no puedes añadir más intentos.",
+                            secondarytext: "Sigue evaluando con el siguiente día.\n O refresca para volver a empezar."
+                        }
+                    }))
                 }
         }else{
-            this.desactivalinks(); // Modal: Recarga para volver a empezar.
+            this.setState(prevState => ({
+                modal: {
+                    ...prevState.modal,
+                    entra: true, 
+                    title: "Recarga la página para volver a empezar.",
+                    secondarytext: ""
+                }
+            }))
+        //this.desactivalinks(); // Modal: Recarga para volver a empezar.
         }
     }
     cadaIntento = (i, indice) => {
@@ -61,7 +79,7 @@ class Dia extends Component {
     render() {
         let arraydeundia = this.props.cuantosnum.filter(deundia => deundia.dia === this.props.index + 1);
         let total = null
-        if (this.props.resultadodia.length > 0){
+        if (this.props.resultadodia[this.props.index]){
                 total = (  
                     <Total  resultadodia={this.props.resultadodia[this.props.index]} />
                 );
@@ -88,6 +106,8 @@ class Dia extends Component {
                 </div>
                 <div className="col m1">
                 </div>
+                <Modal entra={this.state.modal.entra} title={this.state.modal.title} secondarytext={this.state.modal.secondarytext} onclose={this.escondeModal} />
+                {/* {this.nuevo()} */}
             </div>
 
         );

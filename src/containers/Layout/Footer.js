@@ -19,7 +19,7 @@ class Footer extends Component {
                     <div className="mejillonnav">      <Mejillon clicked={() => this.props.nuevaconcha(this.props.diasreducer.length)} /></div>
                     <div className="fixed-action-btn3"><Botones icon={"home"}        tipo={"btn-floating"} color={"accent-color"} dameresultado={""} />       </div>
                     <div className="fixed-action-btn4"><Botones icon={"play_arrow"}  tipo={"btn-floating"} color={"accent-color"} dameresultado={""} />       </div>
-                    <div className="fixed-action-btn5"><Botones icon={"add"}         tipo={"btn-floating"} color={"accent-color"} dameresultado={""}  />       </div>
+                    <div className="fixed-action-btn5"><Botones icon={"add"}         tipo={"btn-floating"} color={"accent-color"} dameresultado={() => this.props.nuevodia("Día: ")}  /> </div>
             </footer>
         );
     }
@@ -33,7 +33,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        nuevaconcha: (dia) => dispatch({ type: actionTypes.NUEVACONCHA, payloadDia: dia })
+        nuevaconcha: (dia)      => dispatch({ type: actionTypes.NUEVACONCHA, payloadDia: dia }),
+        nuevodia:    (texto)    => dispatch({ type: actionTypes.NUEVODIA, payloadTexto: texto  })
 
     };
 };
