@@ -70,7 +70,7 @@ class Inicia extends Component {
                 this.infoModal("Para añadir otro día:","Tienes que añadir intentos."); 
             }
         } else {
-            $('#dia:last-child').hide();
+            this.infoModal("Ya has obtenido un resultado!","Reinicia la app para volver a empezar."); 
         }
     }
     anadeDia = (texto, i) => {
