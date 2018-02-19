@@ -4,7 +4,7 @@
 
 > Working on: http://andurinya.surge.sh/
 
-<a href="https://imgur.com/a/olw3I"><img src="https://imgur.com/a/olw3I" title"thanks to https://ezgif.com/"></a>
+<a href="https://imgur.com/0b7uTFm"><img src="https://i.imgur.com/0b7uTFm.gif" title="source: imgur.com" /></a>
 
 ## Code Samples
 
