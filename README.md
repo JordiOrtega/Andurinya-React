@@ -1,18 +1,29 @@
-React learning project with redux and route.
+# React learning project with redux and route.
 
-Working on: http://andurinya.surge.sh/
+## Introduction
 
-You may use create-react-app to use on developing: https://github.com/facebook/create-react-app
+> Working on: http://andurinya.surge.sh/
 
-Style: materializecss  // http://materializecss.com/
+## Code Samples
 
-Statistics:
+> Style: 
 
-            axios:       https://www.npmjs.com/package/axios 
+        materializecss  // http://materializecss.com/
+
+>Statistics:
+
+            Axios:       https://www.npmjs.com/package/axios 
             
-            firebase:    https://firebase.google.com/
+            Firebase:    https://firebase.google.com/
             
-            ant.design:  https://ant.design/docs/react/introduce
+            Ant.design:  https://ant.design/docs/react/introduce
+           
+
+## Installation
+
+> You may use create-react-app to use on developing: 
+
+        https://github.com/facebook/create-react-app
            
 
 Jordi Ortega.
