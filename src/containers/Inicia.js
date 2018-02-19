@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Dia from './Dia';
 import Modal from '../components/modal/Modal';
-import Botones from './../components/botones/botones'
+import Begin from './../components/inicia/Begin'
+import Footer from './Layout/Footer';
 import * as actionTypes from './../store/actions'
 import $ from 'jquery';
 
@@ -21,7 +21,7 @@ class Inicia extends Component {
         // cuando volvemos de la ruta resultado no se mostrarán.
         if (this.props.cuantosdias.slice(-1).pop() === "FIN" && 
             this.props.cuantosnum.filter(deundia => deundia.dia ===  this.props.cuantosdias.length - 1).length === 0 ){ 
-            $('#dia:nth-last-child(-n+2)').hide();  //https://www.w3.org/TR/selectors-3/#nth-last-child-pseudo
+            $('#dia:nth-last-child(-n+3)').hide();  //https://www.w3.org/TR/selectors-3/#nth-last-child-pseudo
         }
     }
     escondeModal = () => {
@@ -88,25 +88,14 @@ class Inicia extends Component {
     render() {
         return (
             <div>
-                <div className="row section container">
-                    <div className="col s5 center-align">
-                        <Botones icon={null} tipo={"btn"} color={"accent-color"} dameresultado={() => this.nuevoDia("Día: ")}>Nuevo día</Botones>
-                    </div>
-                    <div className="col s1"></div>
-                    <div className="col s5 center-align">
-                    <Link to="/resultado" onClick={() => this.nuevoDia("FIN")}> {/* onClick en Link y no en Botones */}
-                        <Botones icon={null} tipo={"btn"} color={"accent-color"}>Resultado</Botones>
-                    </Link>
-                    </div>
-                    <div className="col s1"></div>
-                </div>
+                <Begin nuevoDia={this.nuevoDia}/>
                 {this.props.cuantosdias.map(this.anadeDia)}
                 <Modal 
-                    entra={this.state.modal.entra} 
-                    title={this.state.modal.title} 
-                    secondarytext={this.state.modal.secondarytext} 
+                    modal={this.state.modal} 
                     onclose={this.escondeModal} 
                 />
+                <Footer 
+                    nuevoDia={this.nuevoDia} />
             </div>
         );
     }

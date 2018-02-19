@@ -13,7 +13,7 @@ class Footer extends Component {
         window.scrollTo(0,0);
     }
     render() {
-        let hayIntentos =  this.props.cuantosnum.filter(deundia => deundia.dia === this.props.diasreducer.length).length;
+        //let hayIntentos =  this.props.cuantosnum.filter(deundia => deundia.dia === this.props.diasreducer.length).length;
         return (
             <footer className="center-align page-footer white" id="footer">
             <div className="footer">&nbsp;</div>
@@ -44,7 +44,7 @@ class Footer extends Component {
                         </Link>       
                     </div>
                     <div className="fixed-action-btn4">
-                        <Link to="/resultado">
+                        <Link to="/resultado" onClick={() => this.props.disabled ? null : this.props.nuevoDia("FIN")}>
                             <Botones 
                                 icon={"play_arrow"}  
                                 tipo={"btn-floating"} 
@@ -56,13 +56,9 @@ class Footer extends Component {
                         <Botones 
                             icon={"add"}         
                             tipo={"btn-floating"} 
-                            color={"accent-color"} 
-                            dameresultado={
-                                            () =>  { if(this.props.diasreducer.slice(-1).pop() !== "FIN" && hayIntentos > 0 ){ 
-                                                        return this.props.nuevodia("Día: ")
-                                                    }else return null
-                                                }
-                                          }  
+                            color={"accent-color"}
+                            disabled={this.props.disabled ? true: false} 
+                            dameresultado={() =>  this.props.nuevoDia("Día: ")}
                         /> 
                     </div>
             </footer>
@@ -73,14 +69,14 @@ class Footer extends Component {
 const mapStateToProps = state => {
     return {
         diasreducer: state.cuantosDias,
-        cuantosnum: state.cuantosNum
+        //cuantosnum: state.cuantosNum
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         nuevaconcha: (dia)      => dispatch({ type: actionTypes.NUEVACONCHA, payloadDia: dia }),
-        nuevodia:    (texto)    => dispatch({ type: actionTypes.NUEVODIA, payloadTexto: texto  })
+        //nuevodia:    (texto)    => dispatch({ type: actionTypes.NUEVODIA, payloadTexto: texto  })
 
     };
 };

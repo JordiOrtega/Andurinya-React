@@ -7,16 +7,11 @@ import Estadisticas from './../../components/estadisticas/Estadisticas';
 const main = (props) => (
     <main>
         <div className="row">
-            <div className="col-sm-1"></div>
-            
-                <div className="col-sm-10 crece">
-                    <Switch>
-                        <Route path="/" exact component={Inicia} />    
-                        <Route path="/resultado" component={EndResult}/>
-                        <Route path="/estadisticas" component={Estadisticas} />
-                     </Switch>
-                </div>
-            <div className="col-sm-1"></div>
+            <Switch>
+                <Route path="/" exact component={Inicia} />    
+                <Route path="/resultado" component={EndResult}/>
+                <Route path="/estadisticas" component={Estadisticas} />
+            </Switch>
         </div>
     </main>
 );

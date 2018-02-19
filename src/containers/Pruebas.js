@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
-import Resultado from './../components/pruebas/Resultado';
-import Contador from './../components/pruebas/Contador';
-import Botones from './../components/botones/botones'
+import BorraPruebas from './../components/pruebas/BorraPruebas';
+import NuevaPrueba from '../components/pruebas/NuevaPrueba';
 import * as actionTypes from './../store/actions'
 
 
 class Pruebas extends Component {
 
-    componentDidMount() {
-        this.focusConcha.scrollIntoView();
-    }
     sumar = () => {
         this.props.sumar(this.props.posicion);
     }
@@ -23,7 +18,7 @@ class Pruebas extends Component {
     }
     eliminar = () => {
         this.props.elimina(this.props.edita[this.props.posicion].id);
-        window.Materialize.toast('¡Eliminada!', 4000);
+        window.Materialize.toast('¡Eliminada!', 1000);
     }
     desabilita = () => {
         let valor = (this.props.cuantosdias.slice(-1).pop() === "FIN") ? true : false;
@@ -31,32 +26,24 @@ class Pruebas extends Component {
     }
     renderNormal() {
         return (
-            <div className="col s12 m6 l4 xl3">
-                <div className="card-panel hoverable light-primary-color" ref={(divdia) => { this.focusConcha = divdia }} >
-                    <div className="commentText inline">
-                        {this.props.children}
-                    <Resultado valueInput={this.props.edita[this.props.posicion].mejillones} />
-                    </div>
-                    <Botones icon={"add"} tipo={"btn-floating"} color={"accent-color"} dameresultado={this.sumar} disabled={this.desabilita()}/> {/* <Ponmejis */}
-                    <Contador valueInput={this.props.edita[this.props.posicion].mejillones} />
-                    <Botones icon={"indeterminate_check_box"} tipo={"btn-floating"} color={"accent-color"} dameresultado={this.restar} disabled={this.desabilita()}/> {/* <Restamejis*/}
-                    <Botones icon={"cancel"} tipo={"btn-floating"} color={"red"} dameresultado={() => this.props.editando(this.props.posicion)} disabled={this.desabilita()} />  {/* <Quitamejis */}
-                </div>
-            </div>
+            <NuevaPrueba 
+                texto={this.props.children}
+                edita={this.props.edita}
+                posicion={this.props.posicion}
+                desabilita={this.desabilita}
+                sumar={this.sumar}
+                restar={this.restar}
+                editando={this.props.editando}
+            />
         );
     }
     renderBorra() {
         return (
-            <div className="col s12 m12 l6">
-                <div className="card-panel hoverable light-primary-color">
-                    <h6 className="regular secondary-text-color"> ¿Estás seguro de eliminar</h6>
-                    <h6 className="regular secondary-text-color"> la {this.props.children} ?</h6>
-                    <i className="material-icons red-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Eliminar" onClick={this.eliminar}>delete</i>
-                    <span className="red-text left" onClick={this.eliminar}>Sí </span>
-                    <i className="material-icons green-text right" onClick={() => this.props.noeditando(this.props.posicion)}>not_interested</i>
-                    <span className="green-text right" onClick={() => this.props.noeditando(this.props.posicion)}>Volver </span>
-                </div>
-            </div>
+            <BorraPruebas 
+                texto={this.props.children}
+                eliminar={this.eliminar}
+                noeditando={this.props.noeditando}
+                posicion={this.props.posicion} />
         );
     }
 

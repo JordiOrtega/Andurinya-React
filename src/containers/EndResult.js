@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from './../firebase';
 
+import Footer from './Layout/Footer'
+
 //import Estadisticas from './../components/estadisticas/Estadisticas';
 
 
@@ -63,7 +65,8 @@ class EndResult extends Component {
                         <button className="waves-effect waves-light btn ">Estadísticas</button>
                     </Link>
                     
-                </div>                
+                </div>   
+                <Footer disabled={true}/>             
             </div>
         );
     }

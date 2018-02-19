@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Pruebas from './Pruebas';
 import Total from '../components/dia/Total';
-import Mejillon from '../components/dia/Mejillon';
+import Diac from '../components/dia/Diac';
 import * as actionTypes from './../store/actions'
 import $ from 'jquery';
 
@@ -16,7 +16,7 @@ class Dia extends Component {
     componentDidMount() {
         // se esconde el último día generado para obtener los resultados sino se hace scroll al footer.
         if (this.props.diasreducer.slice(-1).pop() === "FIN" ){
-            $('#dia:last-child').hide()
+            $('#dia:nth-last-child(-n+2)').hide()
         } else{
             $('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
         } 
@@ -55,30 +55,12 @@ class Dia extends Component {
                 );
         }
         return (
-            <div id="dia" className="row">
-                <div className="col m1">
-                </div>
-                <div className="col s12 m10 default-primary-color z-depth-2">
-                    <blockquote className="accent-color-border">  
-                        <p className="flow-text text-primary-color">{this.props.children} 
-                            <span className="text-primary-color"> Pulsa el mejillón para añadir intentos:</span>
-                        </p> 
-                    </blockquote>
-                    <div className="row">
-                        <div className="col s4 m1">
-                            <Mejillon clicked={this.nuevo} />
-                        </div>
-                        <div className="col s8 m11">
-                          {total}
-                        </div>
-                    </div>
-                    {arraydeundia.map((eachelement, i) => this.cadaIntento(eachelement.id, i))}
-                </div>
-                <div className="col m1">
-                </div>
-               
-            </div>
-
+            <Diac 
+                total={total}
+                nuevo={this.nuevo}
+                arraydeundia={arraydeundia}
+                cadaIntento={this.cadaIntento}
+                texto={this.props.children}/>
         );
     }
 }
