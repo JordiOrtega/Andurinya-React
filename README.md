@@ -6,7 +6,8 @@ You may use create-react-app to use on developing: https://github.com/facebook/c
 
 Style: materializecss  // http://materializecss.com/
 
-Statistics: 
+Statistics:
+
             axios:       https://www.npmjs.com/package/axios 
             
             firebase:    https://firebase.google.com/
