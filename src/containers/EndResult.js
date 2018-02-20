@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from './../firebase';
 
-import Footer from './Layout/Footer'
-
-//import Estadisticas from './../components/estadisticas/Estadisticas';
-
-
+import Footer from './Layout/Footer';
+import Botones from './../components/botones/botones';
+import TableER from './../components/endresult/TableER';
+import ButtonER from './../components/endresult/ButtonER';
 
 class EndResult extends Component {
   
@@ -31,41 +29,8 @@ class EndResult extends Component {
         
         return (
             <div className="container">
-                <table >
-                    <thead >
-                    <tr>
-                        <th className="center-align">Justo</th>
-                        <th className="center-align">Suerte</th>
-                        <th className="center-align">Timo</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td className="center-align">{this.recuenta("Justo")}</td>
-                        <td className="center-align">{this.recuenta("Suerte")}</td>
-                        <td className="center-align">{this.recuenta("Timo")}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div className="row">
-                    <div className="col s12 m1"> &nbsp; </div>
-                    <div className="col s12 m4 center">
-                        <button onClick={() => this.props.history.replace('/')} className="waves-effect waves-light btn ">Volver</button>
-                    </div>
-                    <div className="col s12 m2"> &nbsp;</div>
-                    <div className="col s12 m4 center">
-                        <button onClick={() => this.storeresult()} className="waves-effect waves-light btn ">Guardar resultado</button>
-                    </div>
-                    <div className="col s12 m1">&nbsp;</div>
-                        
-                </div>
-              
-                <div className="row  center-align">
-                    <Link to="/estadisticas">
-                        <button className="waves-effect waves-light btn ">Estadísticas</button>
-                    </Link>
-                    
-                </div>   
+                <TableER recuenta={this.recuenta} />
+                <ButtonER storeresult={this.storeresult} />
                 <Footer disabled={true}/>             
             </div>
         );
