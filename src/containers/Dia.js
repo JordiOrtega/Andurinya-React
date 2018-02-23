@@ -32,7 +32,7 @@ class Dia extends Component {
                     );
                 }
         }else{
-            this.props.infoModal("Recarga para volver a empezar.");
+            this.props.infoModal(2);
         }
     }
     cadaIntento = (i, indice) => {

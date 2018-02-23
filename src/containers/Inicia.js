@@ -12,7 +12,7 @@ import $ from 'jquery';
 class Inicia extends Component {
 
     state = {
-        modal: { entra: false, title: "", secondarytext: "" }
+        modalopen: { isopen: false, modaltext: 0}
     }
 
     componentDidMount() {
@@ -26,24 +26,22 @@ class Inicia extends Component {
     }
     escondeModal = () => {
         this.setState(prevState => ({
-            modal: {
+            modalopen: {
                 ...prevState.modal,
-                entra: false,
-                title: "",
-                secondarytext: ""
+                isopen: false,
             }
         }));
     }
-    infoModal = (title, secondarytext) => {
+    infoModal = (id) => {
         this.setState(prevState => ({
-            modal: {
+            modalopen: {
                 ...prevState.modal,
-                entra: true,
-                title: title,
-                secondarytext: secondarytext
+                isopen: true,
+                modaltext: id
             }
         }))
     }
+    
     nuevoResultado = () => {
         if (this.props.cuantosdias.length > 0) {
             let arraydeundia = this.props.cuantosnum.filter(deundia => deundia.dia === this.props.cuantosdias.length);
@@ -69,10 +67,10 @@ class Inicia extends Component {
             if (this.props.cuantosnum.filter(deundia => deundia.dia === this.props.cuantosdias.length).length > 0 || this.props.cuantosdias.length === 0 || texto === "FIN") { // si hay intentos en el dia anterior o estamos en el primer día.
                 this.props.nuevodia(texto);
             } else if (texto !== 'FIN') {
-                this.infoModal("Para añadir otro día:", "Tienes que añadir intentos.");
+                this.infoModal(0);
             }
         } else {
-            this.infoModal("Ya has obtenido un resultado!", "Reinicia la app para volver a empezar.");
+            this.infoModal(1);
         }
     }
     anadeDia = (texto, i) => {
@@ -93,9 +91,12 @@ class Inicia extends Component {
                 <Begin nuevoDia={this.nuevoDia} />
                 {this.props.cuantosdias.map(this.anadeDia)}
                 <Modal
-                    modal={this.state.modal}
+                    //modal={this.state.modal}
+                    modaltext={this.state.modalopen}
                     onclose={this.escondeModal}
+                    
                 />
+                {/* <button onClick={() => this.clickChild(3)}>Pasale un 3</button> */}
                 <Footer
                     nuevoDia={this.nuevoDia} />
             </div>

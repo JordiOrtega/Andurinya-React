@@ -1,6 +1,6 @@
 import React from 'react';
 
-const table = (props) => {
+const TableER = (props) => {
     return (
         <table >
             <thead >
@@ -21,4 +21,4 @@ const table = (props) => {
     );
 }
 
-export default table;
+export {TableER};

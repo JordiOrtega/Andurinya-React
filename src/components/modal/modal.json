@@ -1,0 +1,15 @@
+[
+    {
+      "id": 0,
+      "title": "Para añadir otro día:",
+      "secondarytext": "Tienes que añadir intentos."
+    }, {
+      "id": 1,
+      "title": "Ya has obtenido un resultado!",
+      "secondarytext": "Reinicia la app para volver a empezar."
+    }, {
+      "id": 2,
+      "title": "Recarga para volver a empezar.",
+      "secondarytext": ""
+    }
+]

@@ -1,14 +1,9 @@
 import * as actionTypes from './actions';
 
 const initialState = {
-    //editando: false,
-    // pulsado: false,
-    // habemusIntentus: false,
     cuantosDias: [],
     resultadoFinal: [],
-    cuantosNum: [] // conchas
-    //valueInput: []  // mejillones
-
+    cuantosNum: [] 
 }
 
 const reducer = (state = initialState, action) => {

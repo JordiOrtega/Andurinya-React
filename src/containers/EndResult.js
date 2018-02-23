@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import axios from './../firebase';
 
 import Footer from './Layout/Footer';
-import Botones from './../components/botones/botones';
-import TableER from './../components/endresult/TableER';
-import ButtonER from './../components/endresult/ButtonER';
+import { ButtonER, TableER } from './../components/endresult';
 
 class EndResult extends Component {
   
@@ -15,14 +13,14 @@ class EndResult extends Component {
     }
     storeresult = () => {
         const result = {
-            fecha: new Date().toJSON().slice(0,10),
+            key: new Date().toJSON().slice(0,10),
             justo: this.recuenta("Justo"),
             suerte: this.recuenta("Suerte"),
             timo: this.recuenta("Timo")
         }
         axios.post('/results.json', result)
             .then(response => window.Materialize.toast('Registro salvado correctamente', 4000))
-            .catch(error =>console.log(error));
+            .catch(error => alert("Ha habido un error: " + error));
     }
     
     render() {

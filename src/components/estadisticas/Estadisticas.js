@@ -22,8 +22,8 @@ class Estadisticas extends Component {
         
         const columns = [{
             title: 'Fecha',
-            dataIndex: 'fecha',
-            key: 'fecha',
+            dataIndex: 'key',
+            key: 'key',
           }, {
             title: '# Justos',
             dataIndex: 'justo',
@@ -45,7 +45,7 @@ class Estadisticas extends Component {
                 <h4 className="center">Estadísticas</h4>
                 <div className="col m2"></div>
                 <div className="col s12 m8">
-                    <Table dataSource={this.state.estadisticas} columns={columns} size="small"  />
+                    <Table dataSource={this.state.estadisticas} columns={columns} size="small" pagination={{pageSize:4}}  />
                     <div className = "row center-align"> 
                         <button onClick={() => this.props.history.replace('/')} className="waves-effect waves-light btn ">Volver</button>
                     </div>

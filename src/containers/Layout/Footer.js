@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-//import { Affix, Button } from 'antd';
 
 import * as actionTypes from './../../store/actions'
 import Mejillon from './../../components/dia/Mejillon'
@@ -9,6 +8,9 @@ import Botones from './../../components/botones/botones'
 
 
 class Footer extends Component {
+    shouldComponentUpdate(nextProps, nextState) {
+        return false;
+    }
     up = () => {
         window.scrollTo(0,0);
     }

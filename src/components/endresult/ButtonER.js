@@ -3,7 +3,7 @@ import Botones from '../botones/botones';
 import { Link } from 'react-router-dom';
 
 
-const table = (props) => {
+const ButtonER = (props) => {
     return (
         <div>
             <div className="row">
@@ -31,4 +31,4 @@ const table = (props) => {
     );
 }
 
-export default table;
+export {ButtonER};
