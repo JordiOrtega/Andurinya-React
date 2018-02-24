@@ -16,7 +16,7 @@ class Dia extends Component {
     componentDidMount() {
         // se esconde el último día generado para obtener los resultados sino se hace scroll al footer.
         if (this.props.diasreducer.slice(-1).pop() === "FIN" ){
-            $('#dia:nth-last-child(-n+2)').hide()
+            //$('#dia:nth-last-child(-n+2)').hide()
         } else{
             $('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
         } 
