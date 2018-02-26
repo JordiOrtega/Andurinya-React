@@ -6,8 +6,6 @@ import Modal from '../components/modal/Modal';
 import Begin from './../components/inicia/Begin'
 import Footer from './Layout/Footer';
 import * as actionTypes from './../store/actions'
-// import $ from 'jquery';
-
 
 class Inicia extends Component {
 
@@ -15,15 +13,6 @@ class Inicia extends Component {
         modalopen: { isopen: false, modaltext: 0}
     }
 
-    // componentDidMount() {
-    //     // Si hemos pulsado resultado y el último día añadido por usuario no contenia intentos:
-    //     // escondemos el último dia generado y el anterior sin ningún intento introducido.
-    //     // cuando volvemos de la ruta resultado no se mostrarán.
-    //     if (this.props.cuantosdias.slice(-1).pop() === "FIN" &&
-    //         this.props.cuantosnum.filter(deundia => deundia.dia === this.props.cuantosdias.length - 1).length === 0) {
-    //         $('#dia:nth-last-child(-n+3)').hide();  //https://www.w3.org/TR/selectors-3/#nth-last-child-pseudo
-    //     }
-    // }
     escondeModal = () => {
         this.setState(prevState => ({
             modalopen: {
@@ -86,16 +75,16 @@ class Inicia extends Component {
         );
     }
     whatDoIHaveToMap = () => {
-        let x = [...this.props.cuantosdias];
+        const x = [...this.props.cuantosdias];
         if (this.props.cuantosdias.slice(-1).pop() === "FIN"){
 
             if(this.props.cuantosnum
                             .filter(deundia => 
-                            deundia.dia === this.props.cuantosdias.length - 1)
+                            deundia.dia === x.length - 1)
                             .length === 0) {
-                return x.splice(-2);
+                return x.slice(0, x.length -2);
             }else{
-            return x.splice(-1);
+            return x.slice(0, x.length -1);
             }
         }
         else return x;

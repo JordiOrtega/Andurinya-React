@@ -5,22 +5,9 @@ import Pruebas from './Pruebas';
 import Total from '../components/dia/Total';
 import Diac from '../components/dia/Diac';
 import * as actionTypes from './../store/actions'
-import $ from 'jquery';
 
 class Dia extends Component {
 
-    state = {
-        modal: {entra:false, title:"", secondarytext:""}
-    }
-
-    componentDidMount() {
-        // se esconde el último día generado para obtener los resultados sino se hace scroll al footer.
-        if (this.props.diasreducer.slice(-1).pop() === "FIN" ){
-            //$('#dia:nth-last-child(-n+2)').hide()
-        } else{
-            $('html,body').animate({ scrollTop: $("footer").offset().top }, 'slow');
-        } 
-    }
     nuevo = (texto) => {
         if (this.props.diasreducer.slice(-1).pop() !== "FIN" ){
                 if (this.props.index + 1 >= this.props.cuantosdias) {
@@ -48,19 +35,23 @@ class Dia extends Component {
 
     render() {
         let arraydeundia = this.props.cuantosnum.filter(deundia => deundia.dia === this.props.index + 1);
-        let total = null
-        if (this.props.resultadodia[this.props.index]){
-                total = (  
-                    <Total  resultadodia={this.props.resultadodia[this.props.index]} />
-                );
-        }
-        return (
+        // let total = null
+        // if (this.props.resultadodia[this.props.index]){
+        //         total = (  
+        //             <Total  resultadodia={this.props.resultadodia[this.props.index]} />
+        //         );
+        // }
+        let total = this.props.resultadodia[this.props.index] ? 
+            <Total  resultadodia={this.props.resultadodia[this.props.index]} /> :
+            null; 
+        return( 
             <Diac 
                 total={total}
                 nuevo={this.nuevo}
                 arraydeundia={arraydeundia}
                 cadaIntento={this.cadaIntento}
-                texto={this.props.children}/>
+                texto={this.props.children}
+            />
         );
     }
 }
