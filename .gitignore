@@ -1,8 +1,5 @@
 # gitignore
 /node_modules
-
-
 /build
-
-
 /src_react_firebase.surge.sh
+npm-debug.log

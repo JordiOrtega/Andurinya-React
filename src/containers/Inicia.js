@@ -5,6 +5,7 @@ import Dia from './Dia';
 import Modal from '../components/modal/Modal';
 import Begin from './../components/inicia/Begin'
 import Footer from './Layout/Footer';
+import { updateObject, whatDoIHaveToMap } from './../utils/utils'
 import * as actionTypes from './../store/actions'
 
 class Inicia extends Component {
@@ -14,23 +15,13 @@ class Inicia extends Component {
     }
 
     escondeModal = () => {
-        this.setState(prevState => ({
-            modalopen: {
-                ...prevState.modal,
-                isopen: false,
-            }
-        }));
+        const hideModal = updateObject(this.state.modalopen, {isopen: false} )
+        this.setState({modalopen: hideModal});
     }
     infoModal = (id) => {
-        this.setState(prevState => ({
-            modalopen: {
-                ...prevState.modal,
-                isopen: true,
-                modaltext: id
-            }
-        }))
+        const info = updateObject(this.state.modalopen, {isopen: true, modaltext: id})
+        this.setState({modalopen: info});
     }
-    
     nuevoResultado = () => {
         if (this.props.cuantosdias.length > 0) {
             let arraydeundia = this.props.cuantosnum.filter(deundia => deundia.dia === this.props.cuantosdias.length);
@@ -74,23 +65,8 @@ class Inicia extends Component {
             </Dia>
         );
     }
-    whatDoIHaveToMap = () => {
-        const x = [...this.props.cuantosdias];
-        if (this.props.cuantosdias.slice(-1).pop() === "FIN"){
-
-            if(this.props.cuantosnum
-                            .filter(deundia => 
-                            deundia.dia === x.length - 1)
-                            .length === 0) {
-                return x.slice(0, x.length -2);
-            }else{
-            return x.slice(0, x.length -1);
-            }
-        }
-        else return x;
-    }   
     render() {
-        let thisIsToMap = this.whatDoIHaveToMap();
+        let thisIsToMap = whatDoIHaveToMap(this.props.cuantosdias, this.props.cuantosnum);
         return (
             <div>
                 <Begin nuevoDia={this.nuevoDia} />
